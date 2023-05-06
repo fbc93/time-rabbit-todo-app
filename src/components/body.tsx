@@ -15,12 +15,14 @@ const Wrapper = styled.div`
 `;
 
 const BoardList = styled.div`
-  padding:0 2em;
   max-width:100%;
   margin: 0px auto;
   display:flex;
-  flex-flow: wrap;
   justify-content:center;
+  flex-wrap:wrap;
+  align-items: flex-start;
+  
+  
 `;
 
 const Body = () => {
@@ -29,7 +31,18 @@ const Body = () => {
   const [toDos, setToDos] = useRecoilState(toDoState);
 
   const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
-    console.log(source, destination)
+
+    if (!destination) return;
+    setBoards((currentBoards) => {
+
+      const copyBoards = [...currentBoards];
+      copyBoards.splice(source.index, 1);
+      copyBoards.splice(destination.index, 0, draggableId)
+      //console.log(copyBoards)
+
+      return copyBoards;
+    })
+
   };
 
   return (
@@ -41,15 +54,15 @@ const Body = () => {
         <BoardTrashCan />
 
         {/* Board : Droppable */}
-        <Droppable droppableId="boardList" direction="horizontal" type="board">
+        <Droppable droppableId="boardList" type="boardList" direction="horizontal">
           {(provided) => (
             <BoardList ref={provided.innerRef} {...provided.droppableProps}>
 
               {boards.map((boardId, index) => (
                 <Board
-                  key={index}
-                  index={index}
+                  key={boardId}
                   boardId={boardId}
+                  index={index}
                   toDos={toDos[boardId]}
                 />
               ))}

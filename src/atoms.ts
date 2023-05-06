@@ -7,6 +7,7 @@ export interface ToDoState {
   [key:string] : ToDo[]
 }
 
+//투두
 export const toDoState = atom<ToDoState>({
   key:"toDo",
   default: {
@@ -23,6 +24,7 @@ export const toDoState = atom<ToDoState>({
   }
 });
 
+//투두 보드
 export const boardState = atom<string[]>({
   key:"board",
   default: [
@@ -33,7 +35,10 @@ export const boardState = atom<string[]>({
 });
 
 //다크모드, 라이트모드
-export const darkMode = atom({
+export const darkMode = atom<boolean>({
   key:"darkMode",
   default: true
 });
+
+//투두 정보 로컬 스토리지 저장
+

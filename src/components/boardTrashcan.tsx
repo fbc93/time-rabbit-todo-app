@@ -17,6 +17,7 @@ const TrashCan = styled.div`
     align-items: flex-end;
     padding-bottom: 2em;
     border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   
 
   span {

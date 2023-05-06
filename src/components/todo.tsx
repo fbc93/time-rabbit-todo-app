@@ -1,3 +1,4 @@
+import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
@@ -89,4 +90,4 @@ const Todo = ({ toDoId, toDoContent, index }: ToDoProps) => {
   );
 }
 
-export default Todo;
+export default React.memo(Todo);

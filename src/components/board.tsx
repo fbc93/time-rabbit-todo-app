@@ -1,3 +1,4 @@
+import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { ToDo } from "../atoms";
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   display: flex;
   flex-direction: column;
-  transition: all 0.2s ease-in-out;
+  //transition: all 0.2s ease-in-out;
 
   &:hover {
     background-color: ${(props) => props.theme.boardHover};
@@ -47,7 +48,7 @@ const BoardTitle = styled.div`
 
   span {
     cursor:pointer;
-    transition: all 0.2s ease-in-out;
+    //transition: all 0.2s ease-in-out;
 
     &:hover {
       color:rgba(255, 71, 87,1.0);
@@ -102,4 +103,4 @@ const Board = ({ index, boardId, toDos }: BoardProps) => {
   );
 }
 
-export default Board;
+export default React.memo(Board);
