@@ -3,11 +3,12 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   font-size:2.5rem;
   text-align:center;
-  padding:4em 1em 2em;
+  padding:6em 1em 2em;
 
   .date {
     font-size:2.3rem;
     margin-bottom:0.5em;
+    font-weight:600;
   }
 
   .time {

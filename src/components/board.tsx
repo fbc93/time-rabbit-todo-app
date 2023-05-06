@@ -23,7 +23,12 @@ const Wrapper = styled.div`
 
   &:hover {
     background-color: ${(props) => props.theme.boardHover};
-    color:#333333;
+    .title {
+      color:#333333;
+    }
+    span {
+      color:#333333;
+    }
   }
 `;
 
@@ -32,10 +37,12 @@ const BoardTitle = styled.div`
   justify-content:space-between;
   align-items:center;
   margin-bottom:2em;
+  color: ${(props) => props.theme.onBgText};
 
   .title {
-    font-size:2.5rem;
+    font-size:2rem;
     font-weight:bold;
+    letter-spacing:-1px;
   }
 
   span {

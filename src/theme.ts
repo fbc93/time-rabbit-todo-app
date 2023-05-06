@@ -3,6 +3,7 @@ import { DefaultTheme } from "styled-components";
 export const darkTheme:DefaultTheme = {
   bg:"#121212",
   onBg:"#ffffff",
+  onBgText:"#ffffff",
   boardBg:"rgba(60, 99, 130,1.0)",
   droppable:"rgba(30, 39, 46,0.5)",
   todoBg: "rgba(210, 218, 226,1.0)",
@@ -17,6 +18,7 @@ export const darkTheme:DefaultTheme = {
 export const lightTheme:DefaultTheme = {
   bg:"#ffffff",
   onBg:"#121212",
+  onBgText:"#333333",
   boardBg:"rgba(130, 204, 221, 0.5)",
   droppable:"rgba(130, 204, 221,0.5)",
   todoBg: "rgba(255, 255, 255,1.0)",
