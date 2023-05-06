@@ -7,10 +7,10 @@ import Board from "./board";
 
 const BoardList = styled.div`
   padding:0 2.5em;
-  width:100%;
+  max-width:100%;
   margin:0 auto;
   display:flex;
-  flex-direction:row;
+  flex-flow: wrap;
   justify-content:center;
 `;
 

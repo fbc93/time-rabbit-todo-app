@@ -18,7 +18,7 @@ export const toDoState = atom<ToDoState>({
       {
         id:2,
         content:"설거지 하기"
-      }
+      },
     ],
   }
 });
@@ -28,7 +28,8 @@ export const boardState = atom<string[]>({
   default: [
    'Todo',
    'Doing',
-   'Done'
+   'Done',
+   'Later'
   ]
 });
 
