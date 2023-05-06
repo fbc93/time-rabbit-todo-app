@@ -1,21 +1,39 @@
 import { atom } from "recoil";
-
-
-
 export interface ToDo {
-  id:number;
-  text:string;
+  id: number;
+  content: string;
 }
-
-interface ToDoState {
-  [key: string]: ToDo[];
+export interface ToDoState {
+  [key:string] : ToDo[]
 }
 
 export const toDoState = atom<ToDoState>({
-  key: "toDo",
+  key:"toDo",
   default: {
-    "To Do": [{id:1, text:"a"}, {id:2, text:"b"}],
-    Doing:[],
-    Done:[]
-  },
+    Done: [
+      {
+        id:1,
+        content:"마트 장보러 가기"
+      },
+      {
+        id:2,
+        content:"설거지 하기"
+      }
+    ],
+  }
+});
+
+export const boardState = atom<string[]>({
+  key:"board",
+  default: [
+   'Todo',
+   'Doing',
+   'Done'
+  ]
+});
+
+//다크모드, 라이트모드
+export const darkMode = atom({
+  key:"darkMode",
+  default: true
 });
