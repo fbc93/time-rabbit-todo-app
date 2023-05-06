@@ -8,7 +8,9 @@ export const darkTheme:DefaultTheme = {
   todoBg: "rgba(210, 218, 226,1.0)",
   onTodo:"rgba(0,0,0,1)",
   delete: "tomato",
-  button:"#333333"
+  button:"#333333",
+  inputBg:"rgba(241, 242, 246,1.0)",
+  boardHover:"rgba(241, 242, 246,1.0)"
   
 }
 
@@ -20,5 +22,7 @@ export const lightTheme:DefaultTheme = {
   todoBg: "rgba(255, 255, 255,1.0)",
   onTodo:"rgba(47, 53, 66,1.0)",
   delete:"tomato",
-  button:"#efefef"
+  button:"#efefef",
+  inputBg:"rgba(241, 242, 246,1.0)",
+  boardHover:"rgba(223, 228, 234,1.0)"
 }

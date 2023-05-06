@@ -4,7 +4,7 @@ import { darkMode } from "./atoms";
 import BoardList from "./components/boardList";
 import { darkTheme, lightTheme } from "./theme";
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ isDarkMode: boolean }>`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -28,6 +28,7 @@ time, mark, audio, video {
 
 html {
   font-size:10px;
+  background-color: ${(props) => props.isDarkMode ? "#121212" : "#ffffff"};
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -75,7 +76,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-        <GlobalStyle />
+        <GlobalStyle isDarkMode={isDarkMode} />
         <BoardList />
       </ThemeProvider>
     </>

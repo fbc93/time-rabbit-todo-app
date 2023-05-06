@@ -13,12 +13,18 @@ const Wrapper = styled.div`
   width:300px;
   min-height:300px;
   margin:0em 2em 4em 2em;
-  padding:2em;
+  padding:1.5em;
   box-sizing:border-box;
   border-radius:0.8em;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   display: flex;
   flex-direction: column;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${(props) => props.theme.boardHover};
+    color:#333333;
+  }
 `;
 
 const BoardTitle = styled.div`
@@ -30,6 +36,15 @@ const BoardTitle = styled.div`
   .title {
     font-size:2.5rem;
     font-weight:bold;
+  }
+
+  span {
+    cursor:pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color:rgba(255, 71, 87,1.0);
+    }
   }
 `;
 
@@ -55,6 +70,9 @@ const Board = ({ index, boardId, toDos }: BoardProps) => {
         >
           <BoardTitle>
             <div className="title">{boardId}</div>
+            <span className="material-symbols-rounded">
+              add_box
+            </span>
           </BoardTitle>
 
           {/* To Do : Droppable */}

@@ -29,7 +29,6 @@ export const boardState = atom<string[]>({
    'Todo',
    'Doing',
    'Done',
-   'Later'
   ]
 });
 

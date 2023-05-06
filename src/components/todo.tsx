@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   background-color:${(props) => props.theme.todoBg};
   padding:10px 15px;
-  margin:1em 0;
+  margin:0.5em 0;
   border-radius:0.5em;
   display:flex;
   justify-content:space-between;

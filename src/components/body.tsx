@@ -4,11 +4,20 @@ import styled from "styled-components";
 import { boardState, toDoState } from "../atoms";
 import { DropResult } from "react-beautiful-dnd";
 import Board from "./board";
+import CreateBoardForm from "./createBoardForm";
+import BoardTrashCan from "./boardTrashcan";
+
+const Wrapper = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+`;
 
 const BoardList = styled.div`
-  padding:0 2.5em;
+  padding:0 2em;
   max-width:100%;
-  margin:0 auto;
+  margin: 0px auto;
   display:flex;
   flex-flow: wrap;
   justify-content:center;
@@ -24,28 +33,34 @@ const Body = () => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <Wrapper>
+      <CreateBoardForm />
+      <DragDropContext onDragEnd={onDragEnd}>
 
-      {/* Board : Droppable */}
-      <Droppable droppableId="boardList" direction="horizontal" type="board">
-        {(provided) => (
-          <BoardList ref={provided.innerRef} {...provided.droppableProps}>
+        {/* 보드 삭제 쓰레기통 */}
+        <BoardTrashCan />
 
-            {boards.map((boardId, index) => (
-              <Board
-                key={index}
-                index={index}
-                boardId={boardId}
-                toDos={toDos[boardId]}
-              />
-            ))}
+        {/* Board : Droppable */}
+        <Droppable droppableId="boardList" direction="horizontal" type="board">
+          {(provided) => (
+            <BoardList ref={provided.innerRef} {...provided.droppableProps}>
 
-            {provided.placeholder}
-          </BoardList>
-        )}
-      </Droppable>
+              {boards.map((boardId, index) => (
+                <Board
+                  key={index}
+                  index={index}
+                  boardId={boardId}
+                  toDos={toDos[boardId]}
+                />
+              ))}
 
-    </DragDropContext>
+              {provided.placeholder}
+            </BoardList>
+          )}
+        </Droppable>
+
+      </DragDropContext>
+    </Wrapper>
   );
 }
 
