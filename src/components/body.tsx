@@ -1,10 +1,9 @@
 import { DragDropContext, DragStart, Droppable } from "react-beautiful-dnd";
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { boardTrashcanState, toDoState } from "../atoms";
 import { DropResult } from "react-beautiful-dnd";
 import CreateBoardForm from "./createBoardForm";
-import BoardTrashCan from "./boardTrashcan";
 import Board from "./board";
 
 const Wrapper = styled.div`
@@ -60,7 +59,6 @@ const Body = () => {
 
     if (type === "boardList") {
       const [boardName] = Object.keys(toDos);
-      console.log(boardName)
     }
 
     // if (type === "boardList") {
@@ -90,9 +88,9 @@ const Body = () => {
   const onBeforeDragStart = (propsData: DragStart) => {
     const { draggableId, mode, source, type } = propsData;
 
-    if (type === "boardList") {
-      setBoardTrashcan(true);
-    }
+    // if (type === "boardList") {
+    //   setBoardTrashcan(true);
+    // }
   }
 
   return (

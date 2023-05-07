@@ -1,7 +1,8 @@
 import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { ToDo } from "../atoms";
+import { ToDo, toDoState } from "../atoms";
 import Todo from "./todo";
 interface BoardProps {
   index: number;
@@ -67,6 +68,18 @@ const TodoList = styled.div`
 
 const Board = (propsData: BoardProps) => {
   const { index, boardId, toDos } = propsData;
+  const [todoData, setTodoData] = useRecoilState(toDoState);
+
+  //보드 삭제
+  const onClickDeleteBoard = () => {
+    setTodoData((currentData) => {
+
+      const copyCurrentData = { ...currentData };
+      delete copyCurrentData[boardId];
+
+      return { ...copyCurrentData };
+    });
+  }
 
   return (
     <Draggable draggableId={boardId} index={index}>
@@ -79,8 +92,8 @@ const Board = (propsData: BoardProps) => {
         >
           <BoardTitle>
             <div className="title">{boardId}</div>
-            <span className="material-symbols-rounded">
-              add_box
+            <span className="material-symbols-rounded" onClick={onClickDeleteBoard}>
+              do_not_disturb_on
             </span>
           </BoardTitle>
 
