@@ -49,8 +49,9 @@ const BoardTitle = styled.div`
 
   span {
     cursor:pointer;
-    //transition: all 0.2s ease-in-out;
-
+    &:first-child {
+      margin-right:0.3em;
+    }
     &:hover {
       color:rgba(255, 71, 87,1.0);
     }
@@ -81,6 +82,36 @@ const Board = (propsData: BoardProps) => {
     });
   }
 
+
+
+  //보드 안에 투두 추가
+  const onClickAddTodo = (event: any) => {
+    const boardName = event.currentTarget.parentNode.previousSibling.innerText;
+    const addBoardAlert = window.prompt(`${boardName} 📌 보드에 추가할 투두 내용을 입력하세요.`);
+
+    if (addBoardAlert === "") {
+      alert("빈값 입니다, \n 투두 내용을 입력하세요.")
+    }
+
+    if (addBoardAlert) {
+      setTodoData((currentToDos) => {
+
+        const [targetBoard] = Object.keys(currentToDos).filter((item) => item === boardName);
+        const copyTodos = [...currentToDos[targetBoard]];
+        const data = { id: +new Date(), content: addBoardAlert }
+
+        copyTodos.push({ ...data });
+
+        return {
+          ...currentToDos,
+          [boardName]: copyTodos
+        };
+
+      })
+    }
+  }
+
+
   return (
     <Draggable draggableId={boardId} index={index}>
 
@@ -92,9 +123,14 @@ const Board = (propsData: BoardProps) => {
         >
           <BoardTitle>
             <div className="title">{boardId}</div>
-            <span className="material-symbols-rounded" onClick={onClickDeleteBoard}>
-              do_not_disturb_on
-            </span>
+            <div>
+              <span className="material-symbols-rounded" onClick={onClickAddTodo}>
+                post_add
+              </span>
+              <span className="material-symbols-rounded" onClick={onClickDeleteBoard}>
+                disabled_by_default
+              </span>
+            </div>
           </BoardTitle>
 
           {/* To Do : Droppable */}
