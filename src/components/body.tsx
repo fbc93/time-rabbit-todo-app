@@ -1,11 +1,11 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { boardState, toDoState } from "../atoms";
+import { toDoState } from "../atoms";
 import { DropResult } from "react-beautiful-dnd";
-import Board from "./board";
 import CreateBoardForm from "./createBoardForm";
 import BoardTrashCan from "./boardTrashcan";
+import Board from "./board";
 
 const Wrapper = styled.div`
   display:flex;
@@ -20,7 +20,6 @@ const BoardList = styled.div`
 
 const Body = () => {
 
-  const [boards, setBoards] = useRecoilState(boardState);
   const [toDos, setToDos] = useRecoilState(toDoState);
 
   const onDragEnd = ({ source, destination, draggableId, type }: DropResult) => {
@@ -28,27 +27,30 @@ const Body = () => {
     if (!destination) return;
 
     if (type === "boardList") {
-      setBoards((currentBoards) => {
-
-        const copyBoards = [...currentBoards];
-        copyBoards.splice(source.index, 1);
-        copyBoards.splice(destination.index, 0, draggableId)
-
-        return copyBoards;
-      });
+      const [boardName] = Object.keys(toDos);
+      console.log(boardName)
     }
 
+    // if (type === "boardList") {
+    //   setBoards((currentBoards) => {
 
+    //     const copyBoards = [...currentBoards];
+    //     copyBoards.splice(source.index, 1);
+    //     copyBoards.splice(destination.index, 0, draggableId)
 
-    //todo in same board
-    if (source.droppableId === destination.droppableId) {
+    //     return copyBoards;
+    //   });
+    // }
 
-    }
+    // //todo in same board
+    // if (source.droppableId === destination.droppableId) {
 
-    //todo in different board
-    if (source.droppableId !== destination.droppableId) {
+    // }
 
-    }
+    // //todo in different board
+    // if (source.droppableId !== destination.droppableId) {
+
+    // }
 
 
   };
@@ -66,13 +68,8 @@ const Body = () => {
           {(provided) => (
             <BoardList ref={provided.innerRef} {...provided.droppableProps}>
 
-              {boards.map((boardId, index) => (
-                <Board
-                  key={boardId}
-                  boardId={boardId}
-                  index={index}
-                  toDos={toDos[boardId]}
-                />
+              {Object.keys(toDos).map((boardId, index) => (
+                <Board boardId={boardId} index={index} toDos={toDos[boardId]} key={index} />
               ))}
 
               {provided.placeholder}

@@ -13,12 +13,12 @@ export const darkMode = atom<boolean>({
   default: true
 });
 
+
 //디폴트 투두리스트
 const defaultToDos:ToDoState = {
-  Todo: [],
-  Doing: [],
-  Done: [],
-  Later: []
+  ToDo:[],
+  Doing:[],
+  Done:[]
 }
 
 //투두 정보 로컬 스토리지 저장
@@ -37,19 +37,6 @@ export const loadToDos = () => {
 export const saveToDos = (toDos:ToDoState) => {
   localStorage.setItem(LOCAL_TODO, JSON.stringify(toDos));
 }
-
-
-//투두 보드
-export const boardState = atom<string[]>({
-  key:"board",
-  default: [
-   'Todo',
-   'Doing',
-   'Done',
-   'Later'
-  ]
-});
-
 
 //투두
 export const toDoState = atom<ToDoState>({

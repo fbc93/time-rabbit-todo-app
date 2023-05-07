@@ -80,6 +80,8 @@ function App() {
     saveToDos(toDos);
   }, [toDos]);
 
+  console.log("✅ Local Storage : ", toDos);
+
   return (
     <>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>

@@ -1,4 +1,7 @@
+import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { toDoState } from "../atoms";
 
 const CreateForm = styled.form`
   margin-bottom: 10em;
@@ -35,17 +38,45 @@ const CreateForm = styled.form`
     border-radius:0.3em;
     font-weight:bold;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    &:disabled{
+      opacity:0.5;
+    }
     &:hover{
       background-color:#dc5b6f;
     }
   }
 `;
 
+interface FormData {
+  board: string;
+}
+
 const CreateBoardForm = () => {
+
+  const [toDos, setToDos] = useRecoilState(toDoState);
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormData>();
+
+  const onValidData = ({ board }: FormData) => {
+
+    if (Object.keys(toDos).length >= 4) {
+      alert("보드는 최대 4개까지만 만들 수 있어요.\n남은 것을 지우고 새로 생성하세요.");
+    }
+
+    if (Object.keys(toDos).length <= 3) {
+      setToDos({ ...toDos, [board]: [] });
+    }
+
+    setValue("board", "");
+  }
+
   return (
-    <CreateForm>
-      <input type="text" placeholder="보드 이름을 작성하세요." />
-      <button>보드 추가</button>
+    <CreateForm onSubmit={handleSubmit(onValidData)}>
+      <input
+        {...register("board", { required: "보드 이름을 반드시 작성하여 추가하세요." })}
+        type="text"
+        placeholder={errors.board?.message ? errors.board?.message + "" : "보드 이름을 작성하세요."}
+      />
+      <button disabled={watch("board") === "" ? true : false}>보드 추가</button>
     </CreateForm>
   );
 }
