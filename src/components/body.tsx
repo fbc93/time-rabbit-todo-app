@@ -15,14 +15,7 @@ const Wrapper = styled.div`
 `;
 
 const BoardList = styled.div`
-  max-width:100%;
-  margin: 0px auto;
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  align-items: flex-start;
-  
-  
+  display:flex; 
 `;
 
 const Body = () => {
@@ -30,18 +23,42 @@ const Body = () => {
   const [boards, setBoards] = useRecoilState(boardState);
   const [toDos, setToDos] = useRecoilState(toDoState);
 
-  const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
+  const onDragEnd = ({ source, destination, draggableId, type }: DropResult) => {
 
     if (!destination) return;
-    setBoards((currentBoards) => {
+    if (type === "boardList") {
+      setBoards((currentBoards) => {
 
-      const copyBoards = [...currentBoards];
-      copyBoards.splice(source.index, 1);
-      copyBoards.splice(destination.index, 0, draggableId)
-      //console.log(copyBoards)
+        const copyBoards = [...currentBoards];
+        copyBoards.splice(source.index, 1);
+        copyBoards.splice(destination.index, 0, draggableId)
 
-      return copyBoards;
-    })
+        return copyBoards;
+      });
+    }
+
+    if (type === "todoList") {
+      setToDos((currentToDos) => {
+
+        const [boardId] = Object.keys(currentToDos);
+        const copyToDos = [...currentToDos[boardId]];
+        const targetTodo = toDos[boardId][+draggableId];
+
+        copyToDos.splice(source.index, 1);
+        copyToDos.splice(destination.index, 0, targetTodo);
+
+
+        console.log(draggableId)
+        console.log({
+          [boardId]: [...copyToDos]
+        })
+        return {
+          [boardId]: [...copyToDos]
+        };
+
+        //return currentToDos;
+      });
+    }
 
   };
 

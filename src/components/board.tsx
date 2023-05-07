@@ -67,6 +67,8 @@ const TodoList = styled.div`
 
 const Board = ({ index, boardId, toDos }: BoardProps) => {
 
+  //console.log(toDos && Object.keys(toDos))
+
   return (
     <Draggable draggableId={boardId} index={index}>
 
@@ -84,12 +86,12 @@ const Board = ({ index, boardId, toDos }: BoardProps) => {
           </BoardTitle>
 
           {/* To Do : Droppable */}
-          <Droppable droppableId={boardId}>
+          <Droppable droppableId={boardId} type="todoList" direction="vertical">
             {(provided) => (
               <TodoList ref={provided.innerRef} {...provided.droppableProps}>
 
-                {toDos?.map((toDo, index) => (
-                  <Todo key={toDo.id} toDoId={toDo.id} toDoContent={toDo.content} index={index} />
+                {toDos && toDos.map((toDo, index) => (
+                  <Todo key={index} toDoId={index} toDoContent={toDo.content} index={index} />
                 ))}
 
                 {provided.placeholder}

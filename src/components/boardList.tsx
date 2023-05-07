@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   height:100vh;
   position:relative;
   transition: background-color 0.2s ease-in-out;
+  overflow-x:hidden;
 `;
 
 const BoardList = () => {
