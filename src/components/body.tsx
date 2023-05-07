@@ -1,7 +1,7 @@
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { useRecoilState } from "recoil";
+import { DragDropContext, DragStart, Droppable } from "react-beautiful-dnd";
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { toDoState } from "../atoms";
+import { boardTrashcanState, toDoState } from "../atoms";
 import { DropResult } from "react-beautiful-dnd";
 import CreateBoardForm from "./createBoardForm";
 import BoardTrashCan from "./boardTrashcan";
@@ -18,11 +18,43 @@ const BoardList = styled.div`
   display:flex; 
 `;
 
+const TrashCanWrapper = styled.div``;
+
+const TrashCan = styled.div<{ BoardTrashcan: boolean }>`
+  background-color: rgb(255, 99, 72);
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out 0s;
+  opacity: 1;
+  position: fixed;
+  top: ${(props) => props.BoardTrashcan ? "-45px" : "-120px"};
+  z-index: 100;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 2em;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transition: top 0.3s ease-in-out;
+
+  span {
+    font-size:3rem;
+  }
+`;
+
 const Body = () => {
 
+  const setBoardTrashcan = useSetRecoilState(boardTrashcanState);
+  const BoardTrashcan = useRecoilValue(boardTrashcanState);
   const [toDos, setToDos] = useRecoilState(toDoState);
 
   const onDragEnd = ({ source, destination, draggableId, type }: DropResult) => {
+
+    //보드 삭제
+    setBoardTrashcan(false);
 
     if (!destination) return;
 
@@ -55,13 +87,31 @@ const Body = () => {
 
   };
 
+  const onBeforeDragStart = (propsData: DragStart) => {
+    const { draggableId, mode, source, type } = propsData;
+
+    if (type === "boardList") {
+      setBoardTrashcan(true);
+    }
+  }
+
   return (
     <Wrapper>
       <CreateBoardForm />
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd} onBeforeDragStart={onBeforeDragStart}>
 
         {/* 보드 삭제 쓰레기통 */}
-        <BoardTrashCan />
+        <Droppable droppableId="deleteBoard">
+          {(provided) => (
+            <TrashCanWrapper ref={provided.innerRef} {...provided.droppableProps}>
+              <TrashCan BoardTrashcan={BoardTrashcan} >
+                <span className="material-symbols-rounded">
+                  delete
+                </span>
+              </TrashCan>
+            </TrashCanWrapper>
+          )}
+        </Droppable>
 
         {/* Board : Droppable */}
         <Droppable droppableId="boardList" type="boardList" direction="horizontal">

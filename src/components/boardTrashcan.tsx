@@ -1,4 +1,6 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { boardTrashcanState } from "../atoms";
 
 const TrashCan = styled.div`
   background-color: rgb(255, 99, 72);
@@ -25,15 +27,26 @@ const TrashCan = styled.div`
   }
 `;
 
+interface TrashCanProps {
+  refProp: (element: HTMLElement | null) => void;
+  droppableProps: any;
+}
 
-const BoardTrashCan = () => {
+const BoardTrashCan = ({ refProp, droppableProps }: TrashCanProps) => {
+
+  const BoardTrashcan = useRecoilValue(boardTrashcanState);
+
   return (
-    <TrashCan>
-      <span className="material-symbols-rounded">
-        delete
-      </span>
-    </TrashCan>
-  )
+    <>
+      {BoardTrashcan && (
+        <TrashCan>
+          <span className="material-symbols-rounded">
+            delete
+          </span>
+        </TrashCan>
+      )}
+    </>
+  );
 }
 
 export default BoardTrashCan;

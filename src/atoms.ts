@@ -44,6 +44,11 @@ export const toDoState = atom<ToDoState>({
   default: loadToDos() ?? defaultToDos,
 });
 
+//보드 삭제 휴지통
+export const boardTrashcanState = atom<boolean>({
+  key:"boardTrashcan",
+  default: false,
+});
 
 
 
