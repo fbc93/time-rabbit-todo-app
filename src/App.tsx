@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { darkMode } from "./atoms";
+import { darkMode, saveToDos, toDoState } from "./atoms";
 import BoardList from "./components/boardList";
 import { darkTheme, lightTheme } from "./theme";
 
@@ -72,6 +73,12 @@ a {
 function App() {
 
   const isDarkMode = useRecoilValue(darkMode);
+  const toDos = useRecoilValue(toDoState);
+
+  //save default todos in localStorage
+  useEffect(() => {
+    saveToDos(toDos);
+  }, [toDos]);
 
   return (
     <>

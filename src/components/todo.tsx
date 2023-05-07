@@ -57,14 +57,14 @@ const Button = styled.button`
 `;
 
 interface ToDoProps {
-  toDoId: number;
+  draggableId: string;
   toDoContent: string;
   index: number;
 }
 
-const Todo = ({ toDoId, toDoContent, index }: ToDoProps) => {
+const Todo = ({ draggableId, toDoContent, index }: ToDoProps) => {
   return (
-    <Draggable draggableId={toDoId + ""} index={index}>
+    <Draggable draggableId={draggableId} index={index}>
 
       {(provided) => (
         <Wrapper

@@ -65,9 +65,8 @@ const TodoList = styled.div`
   border-radius:1em;
 `;
 
-const Board = ({ index, boardId, toDos }: BoardProps) => {
-
-  //console.log(toDos && Object.keys(toDos))
+const Board = (propsData: BoardProps) => {
+  const { index, boardId, toDos } = propsData;
 
   return (
     <Draggable draggableId={boardId} index={index}>
@@ -86,12 +85,16 @@ const Board = ({ index, boardId, toDos }: BoardProps) => {
           </BoardTitle>
 
           {/* To Do : Droppable */}
-          <Droppable droppableId={boardId} type="todoList" direction="vertical">
+          <Droppable droppableId={`droppable_area_${boardId}`} type="todoList" direction="vertical">
             {(provided) => (
               <TodoList ref={provided.innerRef} {...provided.droppableProps}>
 
-                {toDos && toDos.map((toDo, index) => (
-                  <Todo key={index} toDoId={index} toDoContent={toDo.content} index={index} />
+                {toDos?.map((toDo, index) => (
+                  <Todo
+                    key={`draggable_item_${boardId}_${toDo?.id}`}
+                    draggableId={`draggable_item_${boardId}_${toDo?.id}`}
+                    toDoContent={toDo?.content}
+                    index={index} />
                 ))}
 
                 {provided.placeholder}
@@ -105,4 +108,4 @@ const Board = ({ index, boardId, toDos }: BoardProps) => {
   );
 }
 
-export default React.memo(Board);
+export default Board;

@@ -1,4 +1,4 @@
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { boardState, toDoState } from "../atoms";
@@ -26,6 +26,7 @@ const Body = () => {
   const onDragEnd = ({ source, destination, draggableId, type }: DropResult) => {
 
     if (!destination) return;
+
     if (type === "boardList") {
       setBoards((currentBoards) => {
 
@@ -37,28 +38,18 @@ const Body = () => {
       });
     }
 
-    if (type === "todoList") {
-      setToDos((currentToDos) => {
-
-        const [boardId] = Object.keys(currentToDos);
-        const copyToDos = [...currentToDos[boardId]];
-        const targetTodo = toDos[boardId][+draggableId];
-
-        copyToDos.splice(source.index, 1);
-        copyToDos.splice(destination.index, 0, targetTodo);
 
 
-        console.log(draggableId)
-        console.log({
-          [boardId]: [...copyToDos]
-        })
-        return {
-          [boardId]: [...copyToDos]
-        };
+    //todo in same board
+    if (source.droppableId === destination.droppableId) {
 
-        //return currentToDos;
-      });
     }
+
+    //todo in different board
+    if (source.droppableId !== destination.droppableId) {
+
+    }
+
 
   };
 
