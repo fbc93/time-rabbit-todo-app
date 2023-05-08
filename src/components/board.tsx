@@ -92,6 +92,19 @@ const Board = (propsData: PropsData) => {
   const [boardData, setBoardData] = useRecoilState(BoardState);
 
   //보드 삭제
+  const onClickDeleteBoard = (event: any) => {
+
+
+
+    setBoardData((current) => {
+      const boardDataCopy = [...current];
+      const boardIndex = boardDataCopy.findIndex((board) => board.id === 0);
+
+      return current;
+    });
+  }
+
+  //보드 삭제
   // const onClickDeleteBoard = () => {
   //   setBoardData((currentData) => {
 
@@ -153,7 +166,7 @@ const Board = (propsData: PropsData) => {
 
 
   return (
-    <Draggable draggableId={title} index={index}>
+    <Draggable draggableId={`board-${index}`} index={index}>
 
       {(provided) => (
         <Wrapper
@@ -172,21 +185,21 @@ const Board = (propsData: PropsData) => {
               <span className="material-symbols-rounded">
                 post_add
               </span>
-              <span className="material-symbols-rounded">
+              <span className="material-symbols-rounded" onClick={onClickDeleteBoard}>
                 disabled_by_default
               </span>
             </div>
           </BoardTitle>
 
           {/* To Do : Droppable */}
-          <Droppable droppableId={title} type="todos" direction="vertical">
+          <Droppable droppableId={`todo-${id}`} type="todos" direction="vertical">
             {(provided) => (
               <TodoList ref={provided.innerRef} {...provided.droppableProps}>
 
                 {toDos?.map((toDo, index) => (
                   <Todo
-                    key={toDo.content}
-                    draggableId={toDo.content}
+                    key={`board-${id}-todo-${toDo.id}`}
+                    draggableId={`board-${id}-todo-${toDo.id}`}
                     toDoContent={toDo.content}
                     index={index} />
                 ))}

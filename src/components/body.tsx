@@ -76,7 +76,7 @@ const Body = () => {
 
               {boardsData.map((board, index) => (
                 <Board
-                  key={board.title}
+                  key={`board-${index}`}
                   id={board.id}
                   title={board.title}
                   toDos={board.toDos}
