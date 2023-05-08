@@ -61,11 +61,12 @@ const Button = styled.button`
 interface propsData extends IToDo {
   draggableId: string;
   index: number;
+  boardId: number;
 }
 
 const Todo = (propsData: propsData) => {
 
-  const { draggableId, id, content, index } = propsData;
+  const { draggableId, id, content, index, boardId } = propsData;
   const [boardData, setBoardData] = useRecoilState(BoardState);
 
   //투두 Update
@@ -142,4 +143,4 @@ const Todo = (propsData: propsData) => {
   );
 }
 
-export default React.memo(Todo);
+export default Todo;

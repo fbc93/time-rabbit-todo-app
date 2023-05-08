@@ -65,12 +65,7 @@ const CreateBoardForm = () => {
         const newBoard = {
           id: +new Date(),
           title: title,
-          toDos: [
-            {
-              id: +new Date(),
-              content: "투두를 작성해보세요."
-            }
-          ]
+          toDos: []
         }
 
         return [...copyPrevBoards, newBoard]

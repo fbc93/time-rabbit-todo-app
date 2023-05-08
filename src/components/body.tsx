@@ -73,35 +73,30 @@ const Body = () => {
       });
     }
 
-    if (source.droppableId === destination.droppableId) {
+    if (type === "board") {
+      if (source.droppableId === destination.droppableId) {
 
-      //투두 같은 보드 내에서 움직이기
-      setBoardsData((prevBoards) => {
-        const copyPrevBoards = [...prevBoards];
+        //투두 같은 보드 내에서 움직이기
+        setBoardsData((prevBoards) => {
+          const copyPrevBoards = [...prevBoards];
 
-        const targetBoardIndex = copyPrevBoards.findIndex(
-          (board) => board.id + "" === source.droppableId.split("-")[1]
-        );
-        const targetBoard = copyPrevBoards[targetBoardIndex].toDos;
+          const targetBoardIndex = copyPrevBoards.findIndex(
+            (board) => board.id + "" === source.droppableId.split("-")[1]
+          );
 
-        const targetTodoIndex = targetBoard.findIndex(
-          (todo) => todo.id + "" === draggableId.split("-")[1]
-        );
+          const copyTargetBoard = { ...copyPrevBoards[targetBoardIndex] };
+          const copyTargetTodos = [...copyTargetBoard.toDos];
+          const targetTodo = copyTargetTodos[source.index];
 
-        const copyTargetTodos = [...targetBoard];
-        const targetTodo = copyTargetTodos[targetTodoIndex];
+          copyTargetTodos.splice(source.index, 1);
+          copyTargetTodos.splice(destination.index, 0, targetTodo);
 
-        copyTargetTodos.splice(targetTodoIndex, 1);
-        copyTargetTodos.splice(destination.index, 0, targetTodo);
+          copyTargetBoard.toDos = copyTargetTodos;
+          copyPrevBoards.splice(targetBoardIndex, 1, copyTargetBoard);
 
-        const copyTargetBoards = { ...copyPrevBoards[targetBoardIndex] }
-        copyTargetBoards.toDos = copyTargetTodos;
-
-        copyPrevBoards.splice(targetBoardIndex, 1);
-        copyPrevBoards.splice(targetBoardIndex, 0, copyTargetBoards);
-
-        return copyPrevBoards;
-      });
+          return copyPrevBoards;
+        });
+      }
     }
   }
 

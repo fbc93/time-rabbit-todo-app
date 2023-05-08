@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { BoardState, IBoardState } from "../atoms";
 import Todo from "./todo";
+import React from "react";
 
 const Wrapper = styled.div`
   background-color: ${(props) => props.theme.boardBg};
@@ -182,7 +183,9 @@ const Board = (propsData: PropsData) => {
                     draggableId={`board-${id}-todo-${toDo.id}`}
                     id={toDo.id}
                     content={toDo.content}
-                    index={index} />
+                    index={index}
+                    boardId={id}
+                  />
                 ))}
 
                 {provided.placeholder}
