@@ -116,7 +116,7 @@ const Todo = (propsData: propsData) => {
   }
 
   return (
-    <Draggable draggableId={draggableId} index={index}>
+    <Draggable draggableId={`todo-${id}`} index={index}>
 
       {(provided) => (
         <Wrapper

@@ -7,7 +7,7 @@ import Todo from "./todo";
 const Wrapper = styled.div`
   background-color: ${(props) => props.theme.boardBg};
   width:300px;
-  min-height:300px;
+  height:fit-content;
   margin:0em 2em 4em 2em;
   padding:1.5em;
   box-sizing:border-box;
@@ -149,7 +149,7 @@ const Board = (propsData: PropsData) => {
   }
 
   return (
-    <Draggable draggableId={`board-${index}`} index={index}>
+    <Draggable draggableId={`board-${id}`} index={index}>
 
       {(provided) => (
         <Wrapper
@@ -168,20 +168,17 @@ const Board = (propsData: PropsData) => {
               <span className="material-symbols-rounded" onClick={onClickAddTodo}>
                 post_add
               </span>
-              <span className="material-symbols-rounded" onClick={onClickDeleteBoard}>
-                disabled_by_default
-              </span>
             </div>
           </BoardTitle>
 
           {/* To Do : Droppable */}
-          <Droppable droppableId={`todo-${id}`} type="todos" direction="vertical">
+          <Droppable droppableId={`board-${id}`} type="board" direction="vertical">
             {(provided) => (
               <TodoList ref={provided.innerRef} {...provided.droppableProps}>
 
                 {toDos?.map((toDo, index) => (
                   <Todo
-                    key={`board-${id}-todo-${toDo.id}`}
+                    key={toDo.id}
                     draggableId={`board-${id}-todo-${toDo.id}`}
                     id={toDo.id}
                     content={toDo.content}

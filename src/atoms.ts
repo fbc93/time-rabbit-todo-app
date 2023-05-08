@@ -30,11 +30,11 @@ const defaultBoards:IBoardState[] = [
     title:"내일 할일",
     toDos:[
       {
-        id:0,
+        id:2,
         content:"빨래하기"
       },
       {
-        id:1,
+        id:3,
         content:"인강 듣기"
       }
     ]
