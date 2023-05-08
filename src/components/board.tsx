@@ -91,79 +91,62 @@ const Board = (propsData: PropsData) => {
   const { id, title, toDos, index } = propsData;
   const [boardData, setBoardData] = useRecoilState(BoardState);
 
-  //보드 삭제
-  const onClickDeleteBoard = (event: any) => {
+  //보드 Delete
+  const onClickDeleteBoard = () => {
 
+    setBoardData((prevBoards) => {
+      const copyPrevBoards = [...prevBoards];
+      const targetBoardIndex = copyPrevBoards.findIndex((board) => board.id === id);
 
+      copyPrevBoards.splice(targetBoardIndex, 1);
 
-    setBoardData((current) => {
-      const boardDataCopy = [...current];
-      const boardIndex = boardDataCopy.findIndex((board) => board.id === 0);
+      return copyPrevBoards;
+    })
+  }
 
-      return current;
+  //보드 타이틀 Update
+  const onClickUpdateBoardTitle = () => {
+
+    setBoardData((prevBoards) => {
+      const copyPrevBoards = [...prevBoards];
+      const targetBoardIndex = copyPrevBoards.findIndex((board) => board.id === id);
+      const copyTargetBoard = { ...copyPrevBoards[targetBoardIndex] }
+
+      const newTitle = window.prompt(`${title} 📌 보드의 새 타이틀을 입력하세요.`, title);
+
+      if (newTitle) {
+        copyTargetBoard.title = newTitle;
+        copyPrevBoards.splice(targetBoardIndex, 1, copyTargetBoard);
+      }
+
+      return copyPrevBoards;
     });
   }
 
-  //보드 삭제
-  // const onClickDeleteBoard = () => {
-  //   setBoardData((currentData) => {
+  //투두 Create
+  const onClickAddTodo = () => {
 
-  //     const copyCurrentData = { ...currentData };
-  //     delete copyCurrentData[id];
+    setBoardData((prevBoards) => {
+      const copyPrevBoards = [...prevBoards];
+      const targetBoardIndex = copyPrevBoards.findIndex((board) => board.id === id);
+      const copyTargetBoard = { ...copyPrevBoards[targetBoardIndex] }
 
-  //     return { ...copyCurrentData };
-  //   });
-  // }
+      const newTodoContent = window.prompt(`${title} 📌 보드에 새로운 투두를 추가해보세요.`);
 
-  //보드 안에 투두 추가
-  // const onClickAddTodo = (event: any) => {
-  //   const boardName = event.currentTarget.parentNode.previousSibling.firstChild.innerText;
-  //   const addBoardAlert = window.prompt(` 📌 보드에 추가할 투두 내용을 입력하세요.`);
+      if (newTodoContent) {
 
-  //   if (addBoardAlert === "") {
-  //     alert("빈값 입니다, \n 투두 내용을 입력하세요.")
-  //   }
+        const newTodo = {
+          id: +new Date(),
+          content: newTodoContent
+        }
 
-  //   if (addBoardAlert) {
-  //     setTodoData((currentToDos) => {
+        copyTargetBoard.toDos = [newTodo, ...copyTargetBoard.toDos];
+        copyPrevBoards.splice(targetBoardIndex, 1, copyTargetBoard)
+      }
 
-  //       const [targetBoard] = Object.keys(currentToDos).filter((item) => item === boardName);
-  //       const copyTodos = [...currentToDos[targetBoard]];
-  //       const data = { id: +new Date(), content: addBoardAlert }
-
-  //       copyTodos.push({ ...data });
-
-  //       return {
-  //         ...currentToDos,
-  //         [boardName]: copyTodos
-  //       };
-
-  //     });
-  //   }
-  // }
-
-  //보드 이름 수정
-  // const onClickEditBoardName = (event: any) => {
-  //   const boardName = event.currentTarget.previousSibling.innerText;
-  //   const editBoardAlert = window.prompt(`${boardName} 📌 보드 제목을 수정하세요.`);
-
-  //   if (editBoardAlert === "") {
-  //     alert("빈값 입니다, \n 보드 제목을 입력하세요.")
-  //   }
-
-  //   if (editBoardAlert) {
-  //     setTodoData((currentToDos) => {
-
-  //       const copyTodos = { ...currentToDos };
-
-
-
-  //       console.log(copyTodos)
-  //       return copyTodos;
-  //     });
-  //   }
-  // }
-
+      return copyPrevBoards;
+    });
+  }
 
   return (
     <Draggable draggableId={`board-${index}`} index={index}>
@@ -177,12 +160,12 @@ const Board = (propsData: PropsData) => {
           <BoardTitle>
             <div className="left-box">
               <div className="title">{title}</div>
-              <span className="edit material-symbols-rounded">
+              <span className="edit material-symbols-rounded" onClick={onClickUpdateBoardTitle}>
                 stylus
               </span>
             </div>
             <div className="right-box">
-              <span className="material-symbols-rounded">
+              <span className="material-symbols-rounded" onClick={onClickAddTodo}>
                 post_add
               </span>
               <span className="material-symbols-rounded" onClick={onClickDeleteBoard}>
