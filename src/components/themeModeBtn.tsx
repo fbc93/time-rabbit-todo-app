@@ -24,11 +24,21 @@ const ThemeModeBtn = () => {
 
   const [themeData, setThemeData] = useRecoilState(ThemeState);
 
+  const onClickChangeThemeMode = () => {
+    setThemeData((prevTheme) => {
+      if (prevTheme === "darkTheme") {
+        return "lightTheme"
+
+      } else {
+        return "darkTheme"
+      }
+    });
+  }
+
   return (
-    <Button>
+    <Button onClick={onClickChangeThemeMode}>
       <span className="material-symbols-rounded">
-        {/* {data ? "sleep" : "clear_day"} */}
-        clear_day
+        {themeData === "darkTheme" ? "sleep" : "clear_day"}
       </span>
     </Button>
   );
