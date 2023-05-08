@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { darkMode, saveToDos, toDoState } from "./atoms";
+import { BoardState, saveBoards, ThemeState } from "./atoms";
 import BoardList from "./components/boardList";
 import { darkTheme, lightTheme } from "./theme";
 
-const GlobalStyle = createGlobalStyle<{ isDarkMode: boolean }>`
+const GlobalStyle = createGlobalStyle<{ themeMode: "darkTheme" | "lightTheme" }>`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -29,7 +29,7 @@ time, mark, audio, video {
 
 html {
   font-size:10px;
-  background-color: ${(props) => props.isDarkMode ? "#121212" : "#ffffff"};
+  background-color: ${(props) => props.themeMode === "darkTheme" ? "#121212" : "#ffffff"};
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -72,20 +72,21 @@ a {
 
 function App() {
 
-  const isDarkMode = useRecoilValue(darkMode);
-  const toDos = useRecoilValue(toDoState);
+  const themeData = useRecoilValue(ThemeState);
+  const boardsData = useRecoilValue(BoardState);
 
-  //save default todos in localStorage
+  //디폴트 투두보드 로컬스토리지 저장
   useEffect(() => {
-    saveToDos(toDos);
-  }, [toDos]);
+    saveBoards(boardsData);
+  }, [boardsData]);
 
-  console.log("✅ Local Storage : ", toDos);
+  //로컬 스토리지 디버깅
+  console.log("✅ Local Storage : ", boardsData);
 
   return (
     <>
-      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-        <GlobalStyle isDarkMode={isDarkMode} />
+      <ThemeProvider theme={themeData === "darkTheme" ? darkTheme : lightTheme}>
+        <GlobalStyle themeMode={themeData} />
         <BoardList />
       </ThemeProvider>
     </>

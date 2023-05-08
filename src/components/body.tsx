@@ -1,9 +1,9 @@
 import { DragDropContext, DragStart, Droppable } from "react-beautiful-dnd";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import styled from "styled-components";
-import { boardTrashcanState, toDoState } from "../atoms";
+import { useRecoilState } from "recoil";
+import { BoardState, TrashcanState } from "../atoms";
 import { DropResult } from "react-beautiful-dnd";
 import CreateBoardForm from "./createBoardForm";
+import styled from "styled-components";
 import Board from "./board";
 
 const Wrapper = styled.div`
@@ -19,7 +19,7 @@ const BoardList = styled.div`
 
 const TrashCanWrapper = styled.div``;
 
-const TrashCan = styled.div<{ BoardTrashcan: boolean }>`
+const TrashCan = styled.div<{ isTrashcanOpen: boolean }>`
   background-color: rgb(255, 99, 72);
   border: none;
   color: white;
@@ -27,7 +27,7 @@ const TrashCan = styled.div<{ BoardTrashcan: boolean }>`
   transition: background-color 0.2s ease-in-out 0s;
   opacity: 1;
   position: fixed;
-  top: ${(props) => props.BoardTrashcan ? "-45px" : "-120px"};
+  top: ${(props) => props.isTrashcanOpen ? "-45px" : "-120px"};
   z-index: 100;
   width: 100px;
   height: 100px;
@@ -46,51 +46,16 @@ const TrashCan = styled.div<{ BoardTrashcan: boolean }>`
 
 const Body = () => {
 
-  const setBoardTrashcan = useSetRecoilState(boardTrashcanState);
-  const BoardTrashcan = useRecoilValue(boardTrashcanState);
-  const [toDos, setToDos] = useRecoilState(toDoState);
+  const [boardsData, setBoardsData] = useRecoilState(BoardState);
+  const [trashcanData, setTrashcanData] = useRecoilState(TrashcanState);
 
   const onDragEnd = ({ source, destination, draggableId, type }: DropResult) => {
-
-    //보드 삭제
-    setBoardTrashcan(false);
-
-    if (!destination) return;
-
-    if (type === "boardList") {
-      const [boardName] = Object.keys(toDos);
-    }
-
-    // if (type === "boardList") {
-    //   setBoards((currentBoards) => {
-
-    //     const copyBoards = [...currentBoards];
-    //     copyBoards.splice(source.index, 1);
-    //     copyBoards.splice(destination.index, 0, draggableId)
-
-    //     return copyBoards;
-    //   });
-    // }
-
-    // //todo in same board
-    // if (source.droppableId === destination.droppableId) {
-
-    // }
-
-    // //todo in different board
-    // if (source.droppableId !== destination.droppableId) {
-
-    // }
-
-
+    //Logics
   };
 
-  const onBeforeDragStart = (propsData: DragStart) => {
-    const { draggableId, mode, source, type } = propsData;
-
-    // if (type === "boardList") {
-    //   setBoardTrashcan(true);
-    // }
+  const onBeforeDragStart = (data: DragStart) => {
+    const { draggableId, mode, source, type } = data;
+    //Logics
   }
 
   return (
@@ -98,26 +63,30 @@ const Body = () => {
       <CreateBoardForm />
       <DragDropContext onDragEnd={onDragEnd} onBeforeDragStart={onBeforeDragStart}>
 
-        {/* 보드 삭제 쓰레기통 */}
-        <Droppable droppableId="deleteBoard">
+        {/* Board Trashcan */}
+        <Droppable droppableId="trashcan">
           {(provided) => (
             <TrashCanWrapper ref={provided.innerRef} {...provided.droppableProps}>
-              <TrashCan BoardTrashcan={BoardTrashcan} >
-                <span className="material-symbols-rounded">
-                  delete
-                </span>
+              <TrashCan isTrashcanOpen={trashcanData}>
+                <span className="material-symbols-rounded">delete</span>
               </TrashCan>
             </TrashCanWrapper>
           )}
         </Droppable>
 
-        {/* Board : Droppable */}
-        <Droppable droppableId="boardList" type="boardList" direction="horizontal">
+        {/* Boards : Droppable */}
+        <Droppable droppableId="boards" type="boards" direction="horizontal">
           {(provided) => (
             <BoardList ref={provided.innerRef} {...provided.droppableProps}>
 
-              {Object.keys(toDos).map((boardId, index) => (
-                <Board boardId={boardId} index={index} toDos={toDos[boardId]} key={index} />
+              {boardsData.map((board, index) => (
+                <Board
+                  key={board.title}
+                  id={board.id}
+                  title={board.title}
+                  toDos={board.toDos}
+                  index={index}
+                />
               ))}
 
               {provided.placeholder}

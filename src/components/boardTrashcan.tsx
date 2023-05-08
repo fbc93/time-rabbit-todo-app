@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { boardTrashcanState } from "../atoms";
+import { TrashcanState } from "../atoms";
 
 const TrashCan = styled.div`
   background-color: rgb(255, 99, 72);
@@ -34,7 +34,7 @@ interface TrashCanProps {
 
 const BoardTrashCan = ({ refProp, droppableProps }: TrashCanProps) => {
 
-  const BoardTrashcan = useRecoilValue(boardTrashcanState);
+  const BoardTrashcan = useRecoilValue(TrashcanState);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { darkMode } from "../atoms";
+import { ThemeState } from "../atoms";
 
 const Button = styled.button`
   background-color:${(props) => props.theme.button};
@@ -22,13 +22,13 @@ const Button = styled.button`
 
 const ThemeModeBtn = () => {
 
-  const [data, setData] = useRecoilState(darkMode);
-  const onClickChangeMode = () => setData((currentMode) => !currentMode);
+  const [themeData, setThemeData] = useRecoilState(ThemeState);
 
   return (
-    <Button onClick={onClickChangeMode}>
+    <Button>
       <span className="material-symbols-rounded">
-        {data ? "sleep" : "clear_day"}
+        {/* {data ? "sleep" : "clear_day"} */}
+        clear_day
       </span>
     </Button>
   );
