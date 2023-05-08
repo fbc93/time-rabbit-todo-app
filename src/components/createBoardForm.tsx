@@ -48,35 +48,47 @@ const CreateForm = styled.form`
 `;
 
 interface FormData {
-  board: string;
+  title: string;
 }
 
 const CreateBoardForm = () => {
 
-  const [boardsData, setBoardsData] = useRecoilState(BoardState);
+  const [boardsData, setBoardData] = useRecoilState(BoardState);
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormData>();
 
-  const onValidData = ({ board }: FormData) => {
+  const onValidData = ({ title }: FormData) => {
 
-    if (Object.keys(boardsData).length >= 4) {
-      alert("보드는 최대 4개까지만 만들 수 있어요.\n남은 것을 지우고 새로 생성하세요.");
-    }
+    setBoardData((prevBoards) => {
+      const copyPrevBoards = [...prevBoards];
 
-    if (Object.keys(boardsData).length <= 3) {
-      setBoardsData({ ...boardsData, [board]: [] });
-    }
+      if (title) {
+        const newBoard = {
+          id: +new Date(),
+          title: title,
+          toDos: [
+            {
+              id: +new Date(),
+              content: "투두를 작성해보세요."
+            }
+          ]
+        }
 
-    setValue("board", "");
+        return [...copyPrevBoards, newBoard]
+      }
+      return copyPrevBoards;
+    });
+
+    setValue("title", "");
   }
 
   return (
     <CreateForm onSubmit={handleSubmit(onValidData)}>
       <input
-        {...register("board", { required: "보드 이름을 반드시 작성하여 추가하세요." })}
+        {...register("title", { required: "보드 이름을 반드시 작성하여 추가하세요." })}
         type="text"
-        placeholder={errors.board?.message ? errors.board?.message + "" : "보드 이름을 작성하세요."}
+        placeholder={errors.title?.message ? errors.title?.message + "" : "보드 이름을 작성하세요."}
       />
-      <button disabled={watch("board") === "" ? true : false}>보드 추가</button>
+      <button disabled={watch("title") === "" ? true : false}>보드 추가</button>
     </CreateForm>
   );
 }
