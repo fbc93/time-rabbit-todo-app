@@ -17,30 +17,23 @@ const BoardList = styled.div`
   display:flex; 
 `;
 
-const TrashCanWrapper = styled.div``;
-
-const TrashCan = styled.div<{ isTrashcanOpen: boolean }>`
-  background-color: rgb(255, 99, 72);
-  border: none;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out 0s;
-  opacity: 1;
-  position: fixed;
-  top: ${(props) => props.isTrashcanOpen ? "-45px" : "-120px"};
-  z-index: 100;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 2em;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-  transition: top 0.3s ease-in-out;
+const Trashcan = styled.div`
+  width:120px;
+  height:120px;
+  background-color:tomato;
+  border-radius:0 0 60px 60px;
+  position:fixed;
+  top:-50px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   span {
-    font-size:3rem;
+    font-size:3.8rem;
+    padding-bottom:18px;
+    position:absolute;
+    bottom:0;
+    left:50%;
+    color:#c23616;
+    transform:translateX(-50%);
   }
 `;
 
@@ -51,6 +44,7 @@ const Body = () => {
 
   const onDragEnd = ({ source, destination, draggableId, type }: DropResult) => {
     //Logics
+    console.log(source, destination)
   };
 
   const onBeforeDragStart = (data: DragStart) => {
@@ -63,16 +57,17 @@ const Body = () => {
       <CreateBoardForm />
       <DragDropContext onDragEnd={onDragEnd} onBeforeDragStart={onBeforeDragStart}>
 
-        {/* Board Trashcan */}
-        <Droppable droppableId="trashcan">
+        {/* Trashcan : Droppable */}
+        <Droppable droppableId="trashcan" type="boards">
           {(provided) => (
-            <TrashCanWrapper ref={provided.innerRef} {...provided.droppableProps}>
-              <TrashCan isTrashcanOpen={trashcanData}>
-                <span className="material-symbols-rounded">delete</span>
-              </TrashCan>
-            </TrashCanWrapper>
+            <Trashcan ref={provided.innerRef} {...provided.droppableProps}>
+              <span className="material-symbols-rounded">delete</span>
+              {provided.placeholder}
+            </Trashcan>
           )}
         </Droppable>
+
+
 
         {/* Boards : Droppable */}
         <Droppable droppableId="boards" type="boards" direction="horizontal">
