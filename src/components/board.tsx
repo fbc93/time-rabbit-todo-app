@@ -183,7 +183,8 @@ const Board = (propsData: PropsData) => {
                   <Todo
                     key={`board-${id}-todo-${toDo.id}`}
                     draggableId={`board-${id}-todo-${toDo.id}`}
-                    toDoContent={toDo.content}
+                    id={toDo.id}
+                    content={toDo.content}
                     index={index} />
                 ))}
 

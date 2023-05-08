@@ -1,6 +1,8 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { BoardState, IToDo } from "../atoms";
 
 const Wrapper = styled.div`
   background-color:${(props) => props.theme.todoBg};
@@ -56,13 +58,63 @@ const Button = styled.button`
   }
 `;
 
-interface ToDoProps {
+interface propsData extends IToDo {
   draggableId: string;
-  toDoContent: string;
   index: number;
 }
 
-const Todo = ({ draggableId, toDoContent, index }: ToDoProps) => {
+const Todo = (propsData: propsData) => {
+
+  const { draggableId, id, content, index } = propsData;
+  const [boardData, setBoardData] = useRecoilState(BoardState);
+
+  //투두 Update
+  const onClickUpdateTodo = () => {
+
+    setBoardData((prevBoards) => {
+      const copyPrevBoards = [...prevBoards];
+      const boardIndex = draggableId.split('-')[1];
+      const targetBoardIndex = copyPrevBoards.findIndex((board) => board.id === +boardIndex);
+      const copyTargetBoard = { ...copyPrevBoards[targetBoardIndex] }
+      const copyTargetTodos = [...copyTargetBoard.toDos]
+      const targetTodosIndex = copyTargetBoard.toDos.findIndex((todo) => todo.id === id);
+
+      const newContent = window.prompt(`" ${content} " 📌 일정을 수정해보세요.`, content);
+
+      if (newContent) {
+
+        copyTargetTodos.splice(targetTodosIndex, 1, {
+          id: +new Date(),
+          content: newContent
+        });
+
+        copyTargetBoard.toDos = copyTargetTodos;
+        copyPrevBoards.splice(targetBoardIndex, 1, copyTargetBoard);
+      }
+
+      return copyPrevBoards;
+    });
+  }
+
+  //투두 Delete
+  const onClickDeleteTodo = () => {
+
+    setBoardData((prevBoards) => {
+      const copyPrevBoards = [...prevBoards];
+      const boardIndex = draggableId.split('-')[1];
+      const targetBoardIndex = copyPrevBoards.findIndex((board) => board.id === +boardIndex);
+      const copyTargetBoard = { ...copyPrevBoards[targetBoardIndex] }
+      const copyTargetTodos = [...copyTargetBoard.toDos]
+      const targetTodosIndex = copyTargetBoard.toDos.findIndex((todo) => todo.id === id);
+
+      copyTargetTodos.splice(targetTodosIndex, 1);
+      copyTargetBoard.toDos = copyTargetTodos;
+      copyPrevBoards.splice(targetBoardIndex, 1, copyTargetBoard);
+
+      return copyPrevBoards;
+    })
+  }
+
   return (
     <Draggable draggableId={draggableId} index={index}>
 
@@ -72,14 +124,14 @@ const Todo = ({ draggableId, toDoContent, index }: ToDoProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <ToDoContent>{toDoContent}</ToDoContent>
+          <ToDoContent>{content}</ToDoContent>
 
           <ButtonList>
             <Button>
-              <span className="material-symbols-rounded">stylus</span>
+              <span className="material-symbols-rounded" onClick={onClickUpdateTodo}>stylus</span>
             </Button>
             <Button>
-              <span className="material-symbols-rounded">delete</span>
+              <span className="material-symbols-rounded" onClick={onClickDeleteTodo}>delete</span>
             </Button>
           </ButtonList>
 
