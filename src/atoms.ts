@@ -12,35 +12,35 @@ export interface IBoardState {
 //디폴트 투두보드 Data
 const defaultBoards:IBoardState[] = [
   {
-    id: +new Date(),
+    id: 0,
     title:"오늘 할일",
     toDos:[
       {
-        id:+new Date(),
+        id:0,
         content:"화분에 물주기"
       },
       {
-        id:+new Date(),
+        id:1,
         content:"청소기 돌리기"
       }
     ]
   },
   {
-    id: +new Date(),
+    id: 1,
     title:"내일 할일",
     toDos:[
       {
-        id:+new Date(),
+        id:0,
         content:"빨래하기"
       },
       {
-        id:+new Date(),
+        id:1,
         content:"인강 듣기"
       }
     ]
   },
   {
-    id: +new Date(),
+    id: 2,
     title:"나중에 할일",
     toDos:[]
   }
