@@ -60,22 +60,26 @@ const Body = () => {
           return copyPrevBoards;
         })
       }
-    }
-
-    if (destination.droppableId === "trashcan") {
 
       //휴지통에 드롭하면 투두보드 삭제
-      setBoardsData((prevBoards) => {
-        const copyPrevBoards = [...prevBoards];
-        copyPrevBoards.splice(source.index, 1);
+      if (destination.droppableId === "trashcan") {
 
-        return copyPrevBoards;
-      });
+        setBoardsData((prevBoards) => {
+          const copyPrevBoards = [...prevBoards];
+          const targetBoardIndex = copyPrevBoards.findIndex(
+            (board) => board.id + "" === draggableId.split("-")[1]
+          );
+
+          copyPrevBoards.splice(targetBoardIndex, 1);
+
+          return copyPrevBoards;
+        });
+      }
     }
 
+    //같은 보드 내에서 투두 이동
     if (type === "board") {
 
-      //같은 보드 내에서 투두 이동
       if (source.droppableId === destination.droppableId) {
         setBoardsData((prevBoards) => {
           const copyPrevBoards = [...prevBoards];
@@ -132,9 +136,7 @@ const Body = () => {
 
           return copyPrevBoards;
         });
-
       }
-
     }
   }
 
