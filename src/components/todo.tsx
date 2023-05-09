@@ -4,8 +4,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { BoardState, IToDo } from "../atoms";
 
-const Wrapper = styled.div`
-  background-color:${(props) => props.theme.todoBg};
+const Wrapper = styled.div<{ isDragging: boolean }>`
+  background-color:${(props) => props.isDragging ? props.theme.dragged : props.theme.todoBg};
   padding:10px 15px;
   margin:0.5em 0;
   border-radius:0.5em;
@@ -119,8 +119,9 @@ const Todo = (propsData: propsData) => {
   return (
     <Draggable draggableId={`todo-${id}`} index={index}>
 
-      {(provided) => (
+      {(provided, snapshot) => (
         <Wrapper
+          isDragging={snapshot.isDragging}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -143,4 +144,4 @@ const Todo = (propsData: propsData) => {
   );
 }
 
-export default Todo;
+export default React.memo(Todo);

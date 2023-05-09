@@ -11,7 +11,9 @@ export const darkTheme:DefaultTheme = {
   delete: "tomato",
   button:"#333333",
   inputBg:"rgba(241, 242, 246,1.0)",
-  boardHover:"rgba(241, 242, 246,1.0)"
+  boardHover:"rgba(241, 242, 246,1.0)",
+  isDragging:"rgba(247, 143, 179,0.5)",
+  dragged:"#ff7979"
   
 }
 
@@ -26,5 +28,7 @@ export const lightTheme:DefaultTheme = {
   delete:"tomato",
   button:"#efefef",
   inputBg:"rgba(241, 242, 246,1.0)",
-  boardHover:"rgba(223, 228, 234,1.0)"
+  boardHover:"rgba(223, 228, 234,1.0)",
+  isDragging:"rgb(255,205,210)",
+  dragged:"#f6e58d"
 }
