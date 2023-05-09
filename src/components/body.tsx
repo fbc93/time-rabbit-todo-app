@@ -74,9 +74,9 @@ const Body = () => {
     }
 
     if (type === "board") {
-      if (source.droppableId === destination.droppableId) {
 
-        //투두 같은 보드 내에서 움직이기
+      //같은 보드 내에서 투두 이동
+      if (source.droppableId === destination.droppableId) {
         setBoardsData((prevBoards) => {
           const copyPrevBoards = [...prevBoards];
 
@@ -97,6 +97,44 @@ const Body = () => {
           return copyPrevBoards;
         });
       }
+
+      //다른 보드 간 투두 이동
+      if (source.droppableId !== destination.droppableId) {
+        console.log("different");
+
+        setBoardsData((prevBoards) => {
+          const copyPrevBoards = [...prevBoards];
+
+          const targetBoardStartIndex = copyPrevBoards.findIndex(
+            (board) => board.id + "" === source.droppableId.split("-")[1]
+          );
+
+          const targetBoardEndIndex = copyPrevBoards.findIndex(
+            (board) => board.id + "" === destination.droppableId.split("-")[1]
+          );
+
+          const copyStartBoard = { ...copyPrevBoards[targetBoardStartIndex] };
+          const copyEndBoard = { ...copyPrevBoards[targetBoardEndIndex] };
+
+          const copyStartTodos = [...copyStartBoard.toDos];
+          const copyEndTodos = [...copyEndBoard.toDos];
+
+          const targetTodo = copyStartTodos[source.index];
+
+          copyStartTodos.splice(source.index, 1);
+          copyEndTodos.splice(destination.index, 0, targetTodo);
+
+          copyStartBoard.toDos = copyStartTodos;
+          copyEndBoard.toDos = copyEndTodos;
+
+          copyPrevBoards.splice(targetBoardStartIndex, 1, copyStartBoard);
+          copyPrevBoards.splice(targetBoardEndIndex, 1, copyEndBoard);
+
+          return copyPrevBoards;
+        });
+
+      }
+
     }
   }
 
