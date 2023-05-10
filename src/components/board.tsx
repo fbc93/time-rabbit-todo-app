@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.boardBg};
   width:300px;
   height:fit-content;
-  margin:0em 2em 4em 2em;
+  margin:0em 2em 11em;
   box-sizing:border-box;
   border-radius:1em;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
@@ -150,7 +150,9 @@ const Board = (propsData: PropsData) => {
 
         const newTodo = {
           id: +new Date(),
-          content: newTodoContent
+          isComplete: false,
+          content: newTodoContent,
+          createAt: new Date(),
         }
 
         copyTargetBoard.toDos = [newTodo, ...copyTargetBoard.toDos];
@@ -206,6 +208,8 @@ const Board = (propsData: PropsData) => {
                       content={toDo.content}
                       index={index}
                       boardId={id}
+                      createAt={toDo.createAt}
+                      isComplete={toDo.isComplete}
                     />
                   ))}
 

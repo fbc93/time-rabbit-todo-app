@@ -1,7 +1,9 @@
 import { atom } from "recoil";
 export interface IToDo {
   id: number;
+  isComplete: boolean;
   content: string;
+  createAt: Date;
 }
 export interface IBoardState {
   id: number;
@@ -17,11 +19,15 @@ const defaultBoards:IBoardState[] = [
     toDos:[
       {
         id:0,
-        content:"화분에 물주기"
+        isComplete: false,
+        content:"화분에 물주기",
+        createAt: new Date(),
       },
       {
         id:1,
-        content:"청소기 돌리기"
+        isComplete: false,
+        content:"청소기 돌리기",
+        createAt: new Date(),
       }
     ]
   },
@@ -31,11 +37,15 @@ const defaultBoards:IBoardState[] = [
     toDos:[
       {
         id:2,
-        content:"빨래하기"
+        isComplete: false,
+        content:"빨래하기",
+        createAt: new Date(),
       },
       {
         id:3,
-        content:"인강 듣기"
+        isComplete: false,
+        content:"인강 듣기",
+        createAt: new Date(),
       }
     ]
   },
@@ -78,7 +88,7 @@ export const TrashcanState = atom<boolean>({
 //배경 테마 atom Data
 export const ThemeState = atom<"darkTheme"|"lightTheme">({
   key:"theme",
-  default: "darkTheme"
+  default: "lightTheme"
 });
 
 

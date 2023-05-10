@@ -3,16 +3,16 @@ import { Draggable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { BoardState, IToDo } from "../atoms";
+import { makeDateFormat } from "../utils";
 
-const Wrapper = styled.div<{ isDragging: boolean }>`
+const Wrapper = styled.div<{ isDragging: boolean, isComplete: boolean }>`
+  border: ${(props) => props.isComplete ? "0.3em solid red" : "0.3em solid transparent"};
   background-color:${(props) => props.isDragging ? props.theme.dragged : props.theme.todoBg};
   padding:10px 15px;
   margin:0.5em 0;
   border-radius:0.5em;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     button {
@@ -21,7 +21,13 @@ const Wrapper = styled.div<{ isDragging: boolean }>`
   }
 `;
 
-const ToDoContent = styled.div`
+const TopArea = styled.div`
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+`;
+
+const ToDoContent = styled.div<{ isComplete: boolean }>`
   color:${(props) => props.theme.onTodo};
   
   width:calc(100% - 65px);
@@ -34,7 +40,7 @@ const ToDoContent = styled.div`
     margin-right:0.5em;
     font-size:2.2rem;
     cursor:pointer;
-    color: #333333;
+    color: ${(props) => props.isComplete ? "red" : "#333333"}!important;
   }
 
   div {
@@ -73,6 +79,15 @@ const Button = styled.button`
   }
 `;
 
+const BottomArea = styled.div`
+  color: #333333;
+  opacity:0.5;
+  text-align:right;
+  font-size:1.2rem;
+  letter-spacing:-0.5px;
+  font-weight:normal;
+  margin-top:1em;
+`;
 interface propsData extends IToDo {
   draggableId: string;
   index: number;
@@ -81,7 +96,7 @@ interface propsData extends IToDo {
 
 const Todo = (propsData: propsData) => {
 
-  const { draggableId, id, content, index, boardId } = propsData;
+  const { draggableId, id, content, index, createAt, isComplete } = propsData;
   const [boardData, setBoardData] = useRecoilState(BoardState);
 
   //투두 Update
@@ -100,8 +115,10 @@ const Todo = (propsData: propsData) => {
       if (newContent) {
 
         copyTargetTodos.splice(targetTodosIndex, 1, {
-          id: +new Date(),
-          content: newContent
+          id: id,
+          isComplete: isComplete,
+          content: newContent,
+          createAt: createAt,
         });
 
         copyTargetBoard.toDos = copyTargetTodos;
@@ -131,36 +148,70 @@ const Todo = (propsData: propsData) => {
     })
   }
 
+  //투두 isComplete Update
+  const toggleTodoStatus = () => {
+
+    setBoardData((prevBoards) => {
+      const copyPrevBoards = [...prevBoards];
+      const boardIndex = draggableId.split('-')[1];
+      const targetBoardIndex = copyPrevBoards.findIndex((board) => board.id === +boardIndex);
+      const copyTargetBoard = { ...copyPrevBoards[targetBoardIndex] };
+      const copyTargetTodos = [...copyTargetBoard.toDos];
+      const targetTodoIndex = copyTargetTodos.findIndex((todo) => todo.id === id);
+
+      copyTargetTodos.splice(targetTodoIndex, 1, {
+        id: id,
+        isComplete: !isComplete,
+        content: content,
+        createAt: createAt,
+      });
+
+      copyTargetBoard.toDos = copyTargetTodos;
+      copyPrevBoards.splice(targetBoardIndex, 1, copyTargetBoard);
+
+      return copyPrevBoards;
+    })
+  }
+
   return (
     <Draggable draggableId={`todo-${id}`} index={index}>
 
       {(provided, snapshot) => (
+
         <Wrapper
+          isComplete={isComplete}
           isDragging={snapshot.isDragging}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <ToDoContent>
-            <span className="material-symbols-rounded">
-              check_box_outline_blank
-            </span>
-            {/* <span className="material-symbols-rounded">
-              check_box
-            </span> */}
-            <div>{content}</div>
-          </ToDoContent>
+          <TopArea>
+            <ToDoContent isComplete={isComplete}>
+              {isComplete ? (
+                <span className="material-symbols-rounded" onClick={toggleTodoStatus}>
+                  check_box
+                </span>
+              ) : (
+                <span className="material-symbols-rounded" onClick={toggleTodoStatus}>
+                  check_box_outline_blank
+                </span>
+              )}
 
-          <ButtonList>
-            <Button>
-              <span className="material-symbols-rounded" onClick={onClickUpdateTodo}>stylus</span>
-            </Button>
-            <Button>
-              <span className="material-symbols-rounded" onClick={onClickDeleteTodo}>delete</span>
-            </Button>
-          </ButtonList>
+              <div>{content}</div>
+            </ToDoContent>
 
+            <ButtonList>
+              <Button>
+                <span className="material-symbols-rounded" onClick={onClickUpdateTodo}>stylus</span>
+              </Button>
+              <Button>
+                <span className="material-symbols-rounded" onClick={onClickDeleteTodo}>delete</span>
+              </Button>
+            </ButtonList>
+          </TopArea>
+          <BottomArea>{makeDateFormat(createAt) + ""}</BottomArea>
         </Wrapper>
+
       )}
 
     </Draggable>
