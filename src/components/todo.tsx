@@ -23,11 +23,26 @@ const Wrapper = styled.div<{ isDragging: boolean }>`
 
 const ToDoContent = styled.div`
   color:${(props) => props.theme.onTodo};
-  font-weight:normal;
-  font-size:1.4rem;
-  letter-spacing:-1px;
+  
   width:calc(100% - 65px);
   line-height:1.5;
+  display:flex;
+  justify-contents:center;
+  align-items:center;
+
+  span {
+    margin-right:0.5em;
+    font-size:2.2rem;
+    cursor:pointer;
+    color: #333333;
+  }
+
+  div {
+    font-weight:normal;
+    font-size:1.4rem;
+    letter-spacing:-1px;
+    line-height:1;
+  }
 `;
 
 const ButtonList = styled.div`
@@ -126,7 +141,15 @@ const Todo = (propsData: propsData) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <ToDoContent>{content}</ToDoContent>
+          <ToDoContent>
+            <span className="material-symbols-rounded">
+              check_box_outline_blank
+            </span>
+            {/* <span className="material-symbols-rounded">
+              check_box
+            </span> */}
+            <div>{content}</div>
+          </ToDoContent>
 
           <ButtonList>
             <Button>

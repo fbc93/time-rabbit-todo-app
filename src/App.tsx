@@ -30,6 +30,7 @@ time, mark, audio, video {
 html {
   font-size:10px;
   background-color: ${(props) => props.themeMode === "darkTheme" ? "#121212" : "#ffffff"};
+  transition: background-color 0.2s ease-in-out;
 }
 
 /* HTML5 display-role reset for older browsers */

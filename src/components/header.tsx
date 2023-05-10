@@ -25,7 +25,14 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width:960px;
   margin:auto;
-  padding:7em 0 1.5em;
+  padding:6em 0 1.5em;
+`;
+
+const HeaderImage = styled.div`
+  width:100px;
+  height:100px;
+  border:1px solid red;
+  margin:auto auto 0.5em auto;
 `;
 
 const Header = () => {
@@ -36,8 +43,9 @@ const Header = () => {
         <div className="time">
           10:30:12
         </div>
+        {/* <HeaderImage>⏰</HeaderImage> */}
         <div className="greeting">
-          <div>오늘 하루가 다 가기전에 <br /> 하나씩 당신의 Todo를 완료해보세요!</div>
+          <div>⏰ 오늘 하루가 다 가기전에 <br /> 하나씩 당신의 Todo를 완료해보세요!</div>
         </div>
       </Container>
     </Wrapper>
