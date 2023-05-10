@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { BoardState, saveBoards, ThemeState, TrashcanState } from "./atoms";
+import { BoardState, saveBoards, ThemeState } from "./atoms";
 import BoardList from "./components/boardList";
 import { darkTheme, lightTheme } from "./theme";
 
@@ -67,6 +67,10 @@ body {
 }
 a {
   text-decoration:none;
+}
+
+&:has(.board-isDragging) #trashcan {
+  transform:translateY(0em) scale(1);
 }
 `;
 

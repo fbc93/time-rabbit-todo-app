@@ -7,6 +7,14 @@ import React from "react";
 
 const RotateHandle = styled.div`
   height:fit-content;
+
+  &.board-dragging-over-trashcan {
+    div {
+      background-color:${(props) => props.theme.trashcanOver};
+      border-radius:1em;
+      transition: none;
+    }
+  }
 `;
 
 const Wrapper = styled.div`
@@ -15,7 +23,7 @@ const Wrapper = styled.div`
   height:fit-content;
   margin:0em 2em 4em 2em;
   box-sizing:border-box;
-  border-radius:0.8em;
+  border-radius:1em;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   display: flex;
   flex-direction: column;
@@ -157,9 +165,11 @@ const Board = (propsData: PropsData) => {
 
       {(provided, snapshot) => (
         <RotateHandle
+          className={snapshot.draggingOver === "trashcan" ? "board-dragging-over-trashcan" : ""}
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}>
+          {...provided.dragHandleProps}
+        >
 
           <Wrapper className={snapshot.isDragging ? "board-isDragging" : ""}>
             <BoardTitle>
@@ -195,7 +205,13 @@ const Board = (propsData: PropsData) => {
                       index={index}
                       boardId={id}
                     />
+
                   ))}
+
+                  {/* 투두 아직 없는 경우 */}
+                  {toDos.length === 0 && (
+                    <div>Nothing</div>
+                  )}
 
                   {provided.placeholder}
                 </TodoList>

@@ -1,6 +1,6 @@
 import { DragDropContext, DragStart, Droppable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
-import { BoardState, TrashcanState } from "../atoms";
+import { BoardState } from "../atoms";
 import { DropResult } from "react-beautiful-dnd";
 import CreateBoardForm from "./createBoardForm";
 import styled from "styled-components";
@@ -18,6 +18,8 @@ const BoardList = styled.div`
 `;
 
 const Trashcan = styled.div`
+  transform:translateY(-9.9em);
+  scale:1;
   width:200px;
   height:100px;
   background-color:tomato;
@@ -25,7 +27,7 @@ const Trashcan = styled.div`
   position:fixed;
   top: 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  transition: top 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   span {
     font-size:5rem;
@@ -152,7 +154,7 @@ const Body = () => {
         {/* Trashcan : Droppable */}
         <Droppable droppableId="trashcan" type="boards">
           {(provided) => (
-            <Trashcan ref={provided.innerRef} {...provided.droppableProps}>
+            <Trashcan id="trashcan" ref={provided.innerRef} {...provided.droppableProps}>
               <span className="material-symbols-rounded">delete</span>
               {provided.placeholder}
             </Trashcan>

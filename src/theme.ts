@@ -13,7 +13,8 @@ export const darkTheme:DefaultTheme = {
   inputBg:"rgba(241, 242, 246,1.0)",
   boardHover:"rgba(241, 242, 246,1.0)",
   isDragging:"rgba(247, 143, 179,0.5)",
-  dragged:"#ff7979"
+  dragged:"#ff7979",
+  trashcanOver:"rgba(247, 143, 179,1.0)"
   
 }
 
@@ -30,5 +31,6 @@ export const lightTheme:DefaultTheme = {
   inputBg:"rgba(241, 242, 246,1.0)",
   boardHover:"rgba(223, 228, 234,1.0)",
   isDragging:"rgb(255,205,210)",
-  dragged:"#f6e58d"
+  dragged:"#f6e58d",
+  trashcanOver:"#f6e58d"
 }
