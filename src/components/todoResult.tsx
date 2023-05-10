@@ -1,4 +1,8 @@
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { BoardState } from "../atoms";
+import { makeNumValueFormat } from "../utils";
 
 const Wrapper = styled.div`
   background-image: ${(props) => props.theme.resultBg};
@@ -43,6 +47,27 @@ const RightBox = styled.div`
 
 const TodoResult = () => {
 
+  //isComplete 개수 체크
+  const boardsArray = useRecoilValue(BoardState);
+  const boardsTodosArray = Object.keys(boardsArray).map(
+    (index) => boardsArray[+index].toDos
+  );
+
+  const existTodosArray = boardsTodosArray.filter(
+    (array) => array.length > 0
+  );
+
+  const isCompleteArray = Object.keys(existTodosArray)
+    .map((index) => [...existTodosArray[+index]]
+      .map((toDo) => toDo.isComplete));
+
+  const isCompleteTrueArray = isCompleteArray
+    .map((array) => array
+      .filter((value) => value === true).length);
+
+  const sumArrayValues = (sum: number, currentValue: number) => sum + currentValue;
+  const isCompleteLength = isCompleteTrueArray.reduce(sumArrayValues, 0);
+
   return (
     <Wrapper id="todoResult">
       <Container>
@@ -51,7 +76,7 @@ const TodoResult = () => {
           <div>To Do는 🏃‍♀️</div>
         </LeftBox>
         <RightBox>
-          <div className="number">06</div>
+          <div className="number">{makeNumValueFormat(isCompleteLength)}</div>
           <div>개</div>
         </RightBox>
       </Container>

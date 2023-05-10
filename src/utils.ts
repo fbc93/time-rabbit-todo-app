@@ -1,3 +1,4 @@
+//date format
 export const makeDateFormat = (value:Date) => {
   
   const valueDate = new Date(value);
@@ -11,4 +12,9 @@ export const makeDateFormat = (value:Date) => {
   const dayArr = ["일","월","화","수","목","금","토"];
   
   return `${month}월 ${date}일 (${dayArr[day]}) ${hour}:${minute}:${second}`;
+}
+
+//number format
+export const makeNumValueFormat = (value: number) => {
+  return value.toString().length < 2 ? '0' + value : value;
 }

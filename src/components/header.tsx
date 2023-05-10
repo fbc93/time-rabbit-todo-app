@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   }
 
   .time {
-    font-size:8rem;
+    font-size:6rem;
     margin-bottom:0.5em;
     font-weight:bold;
   }

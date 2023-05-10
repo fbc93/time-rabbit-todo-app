@@ -12,7 +12,7 @@ const Wrapper = styled.div<{ isDragging: boolean, isComplete: boolean }>`
   margin:0.5em 0;
   border-radius:0.5em;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-  transition: all 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out;
 
   &:hover {
     button {
