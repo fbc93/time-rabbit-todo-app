@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Body from "./body";
 import Header from "./header";
 import ThemeModeBtn from "./themeModeBtn";
+import TodoResult from "./todoResult";
 
 const Wrapper = styled.div`
   background-color:${(props) => props.theme.bg};
@@ -17,6 +18,7 @@ const BoardList = () => {
   return (
     <Wrapper>
       <ThemeModeBtn />
+      <TodoResult />
       <Header />
       <Body />
     </Wrapper>

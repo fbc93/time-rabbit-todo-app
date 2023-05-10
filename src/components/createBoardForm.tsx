@@ -4,13 +4,12 @@ import styled from "styled-components";
 import { BoardState } from "../atoms";
 
 const CreateForm = styled.form`
-  margin-bottom: 5em;
+  margin-bottom: 7em;
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 500px;
   max-width: 100%;
-  padding: 0px 3em;
   justify-content: space-between;
   
 
@@ -57,6 +56,13 @@ const CreateBoardForm = () => {
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormData>();
 
   const onValidData = ({ title }: FormData) => {
+
+    //보드는 4개까지 생성가능
+    if (boardsData.length >= 4) {
+      alert("보드는 4개까지만 만들 수 있어요,\n기존의 보드를 삭제하고 새로 생성하세요.");
+
+      return;
+    }
 
     setBoardData((prevBoards) => {
       const copyPrevBoards = [...prevBoards];

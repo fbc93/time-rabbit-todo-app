@@ -7,16 +7,17 @@ const Button = styled.button`
   border:none;
   color:${(props) => props.theme.onBg};
   cursor:pointer;
-  padding:0.8em;
-  position:absolute;
-  top:0;
+  padding:1.5em;
+  position:fixed;
+  z-index:100;
+  bottom:0;
   right:0;
-  margin:1.5em;
+  margin:2.5em;
   transition: background-color 0.2s ease-in-out;
   border-radius:50%;
 
   span {
-    font-size:2.5rem;
+    font-size:3rem;
   }
 `;
 

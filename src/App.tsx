@@ -72,6 +72,10 @@ a {
 &:has(.board-isDragging) #trashcan {
   transform:translateY(0em) scale(1);
 }
+
+&:has(.board-isDragging) #todoResult {
+  height:0;
+}
 `;
 
 function App() {

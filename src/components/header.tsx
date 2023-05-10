@@ -3,8 +3,7 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   font-size:2.5rem;
   text-align:center;
-  padding:6em 1em 2em;
-
+  
   .date {
     font-size:2.3rem;
     margin-bottom:0.5em;
@@ -12,7 +11,7 @@ const Wrapper = styled.div`
   }
 
   .time {
-    font-size:10rem;
+    font-size:8rem;
     margin-bottom:0.5em;
     font-weight:bold;
   }
@@ -23,17 +22,24 @@ const Wrapper = styled.div`
   }
 `;
 
+const Container = styled.div`
+  width:960px;
+  margin:auto;
+  padding:7em 0 1.5em;
+`;
+
 const Header = () => {
   return (
     <Wrapper>
-      <div className="date">2023년 05월 06일 (토)</div>
-      <div className="time">
-        10:30:12
-      </div>
-      <div className="greeting">
-        <p>안녕하세요.</p>
-        <p>오늘의 할일을 체크해보세요.</p>
-      </div>
+      <Container>
+        <div className="date">2023년 05월 06일 (토)</div>
+        <div className="time">
+          10:30:12
+        </div>
+        <div className="greeting">
+          <div>오늘 하루가 다 가기전에 <br /> 하나씩 당신의 Todo를 완료해보세요!</div>
+        </div>
+      </Container>
     </Wrapper>
   );
 }
