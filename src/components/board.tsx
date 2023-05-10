@@ -211,7 +211,7 @@ const Board = (propsData: PropsData) => {
 
                   {/* 투두 생성 전 */}
                   {toDos.length === 0 && (
-                    <EmptyTodo />
+                    snapshot.isDraggingOver ? null : <EmptyTodo />
                   )}
 
                   {provided.placeholder}
