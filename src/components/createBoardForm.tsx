@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BoardState } from "../atoms";
 
 const CreateForm = styled.form`
-  margin-bottom: 10em;
+  margin-bottom: 5em;
   display: flex;
   flex-direction: row;
   align-items: center;

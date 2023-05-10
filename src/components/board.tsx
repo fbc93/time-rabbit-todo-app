@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { BoardState, IBoardState } from "../atoms";
 import Todo from "./todo";
 import React from "react";
+import EmptyTodo from "./emptyTodo";
 
 const RotateHandle = styled.div`
   height:fit-content;
@@ -196,6 +197,7 @@ const Board = (propsData: PropsData) => {
                   {...provided.droppableProps}
                 >
 
+                  {/* 투두 생성 후 */}
                   {toDos?.map((toDo, index) => (
                     <Todo
                       key={toDo.id}
@@ -205,12 +207,11 @@ const Board = (propsData: PropsData) => {
                       index={index}
                       boardId={id}
                     />
-
                   ))}
 
-                  {/* 투두 아직 없는 경우 */}
+                  {/* 투두 생성 전 */}
                   {toDos.length === 0 && (
-                    <div>Nothing</div>
+                    <EmptyTodo />
                   )}
 
                   {provided.placeholder}

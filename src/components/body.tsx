@@ -5,6 +5,7 @@ import { DropResult } from "react-beautiful-dnd";
 import CreateBoardForm from "./createBoardForm";
 import styled from "styled-components";
 import Board from "./board";
+import EmptyBoard from "./emptyBoard";
 
 const Wrapper = styled.div`
   display:flex;
@@ -106,7 +107,6 @@ const Body = () => {
 
       //다른 보드 간 투두 이동
       if (source.droppableId !== destination.droppableId) {
-        console.log("different");
 
         setBoardsData((prevBoards) => {
           const copyPrevBoards = [...prevBoards];
@@ -161,13 +161,12 @@ const Body = () => {
           )}
         </Droppable>
 
-
-
         {/* Boards : Droppable */}
         <Droppable droppableId="boards" type="boards" direction="horizontal">
           {(provided) => (
             <BoardList ref={provided.innerRef} {...provided.droppableProps}>
 
+              {/* 보드 생성 후 */}
               {boardsData.map((board, index) => (
                 <Board
                   key={board.id}
@@ -177,6 +176,11 @@ const Body = () => {
                   index={index}
                 />
               ))}
+
+              {/* 보드 생성 전 */}
+              {boardsData.length === 0 && (
+                <EmptyBoard />
+              )}
 
               {provided.placeholder}
             </BoardList>
