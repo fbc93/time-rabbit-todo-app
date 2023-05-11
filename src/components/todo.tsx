@@ -6,7 +6,7 @@ import { BoardState, IToDo } from "../atoms";
 import { makeDateFormat } from "../utils";
 
 const Wrapper = styled.div<{ isDragging: boolean, isComplete: boolean }>`
-  border: ${(props) => props.isComplete ? "0.3em solid red" : "0.3em solid transparent"};
+  border: ${(props) => props.isComplete ? "0.3em solid red" : "0.3em solid rgba(51, 51, 51, 0.1)"};
   background-color:${(props) => props.isDragging ? props.theme.dragged : props.theme.todoBg};
   padding:10px 15px;
   margin:0.5em 0;
@@ -40,7 +40,7 @@ const ToDoContent = styled.div<{ isComplete: boolean }>`
     margin-right:0.5em;
     font-size:2.2rem;
     cursor:pointer;
-    color: ${(props) => props.isComplete ? "red" : "#333333"}!important;
+    color: ${(props) => props.isComplete ? "red" : "#cccccc"}!important;
   }
 
   div {

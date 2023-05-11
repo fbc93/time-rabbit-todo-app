@@ -18,3 +18,9 @@ export const makeDateFormat = (value:Date) => {
 export const makeNumValueFormat = (value: number) => {
   return value.toString().length < 2 ? '0' + value : value;
 }
+
+//todo progress-bar percentage
+export const calcTodoProgress = (completedTodo:number, allTodos:number ) => {
+  
+  return ( completedTodo / allTodos ) * 100
+}

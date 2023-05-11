@@ -5,13 +5,13 @@ const Wrapper = styled.div`
   text-align:center;
   
   .date {
-    font-size:2.3rem;
+    font-size:2rem;
     margin-bottom:0.5em;
     font-weight:600;
   }
 
   .time {
-    font-size:6rem;
+    font-size:5rem;
     margin-bottom:0.5em;
     font-weight:bold;
   }
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width:960px;
   margin:auto;
-  padding:6em 0 1.5em;
+  padding:18vh 0px 5vh;
 `;
 
 const HeaderImage = styled.div`
@@ -43,7 +43,7 @@ const Header = () => {
         <div className="time">
           10:30:12
         </div>
-        {/* <HeaderImage>⏰</HeaderImage> */}
+        {/* <HeaderImage></HeaderImage> */}
         <div className="greeting">
           <div>⏰ 오늘 하루가 다 가기전에 <br /> 하나씩 당신의 Todo를 완료해보세요!</div>
         </div>

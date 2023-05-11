@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { BoardState } from "../atoms";
-import { makeNumValueFormat } from "../utils";
+import { calcTodoProgress, makeNumValueFormat } from "../utils";
 
 const Wrapper = styled.div`
-  background-image: ${(props) => props.theme.resultBg};
+  //background-image: ${(props) => props.theme.resultBg};
+  background-color:${(props) => props.theme.progressbar};
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  height:92px;
+  height:80px;
   position:fixed;
   top:0;
   left:0;
@@ -17,37 +17,83 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
+  position:relative;
+  padding:0 20px;
   width:960px;
   height:100%;
   margin:auto;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   color: ${(props) => props.theme.onBgText};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
+
+const InfoArea = styled.div`
+  height:100%;
+  display:flex;
+  align-items:center;
+`;
+
 const LeftBox = styled.div`
   margin-right:2em;
-  font-size:2rem;
-  line-height:1.1;
+  font-size:1.5rem;
+  line-height:1.3;
   font-weight:bold;
 `;
 const RightBox = styled.div`
   display:flex;
   justify-content:center;
   align-items:baseline;
-  font-size:1.8rem;
-  font-weight:bold;
- 
+  font-size:2.5rem;
+  font-weight:700;
+  
   .number {
-    font-size:5rem;
-    font-weight:bold;
+    font-size:4rem;
+    font-weight:600;
     margin-right:0.1em;
+  }
+`;
+
+const ProgressBar = styled.div<{ percentage: number }>`
+  position:absolute;
+  width: ${(props) => props.percentage}%;
+  height:100%;
+  background-image:${(props) => props.theme.resultBg};
+  transition: width 0.3s ease-in-out;
+`;
+
+const Quotes = styled.div`
+  width:60%;
+  overflow:hidden;
+  font-size:1.5rem;
+  text-align:left;
+  
+
+  
+
+  div {
+    margin:0 0.3em;
+  }
+
+  
+`;
+
+const EmptyToDo = styled.div`
+  font-size:1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight:bold;
+
+  span {
+    display:inline-block;
+    margin-right:0.3em;
   }
 `;
 
 const TodoResult = () => {
 
-  //isComplete 개수 체크
+  //isComplete 개수, 모든 투두 개수 체크
   const boardsArray = useRecoilValue(BoardState);
   const boardsTodosArray = Object.keys(boardsArray).map(
     (index) => boardsArray[+index].toDos
@@ -68,17 +114,38 @@ const TodoResult = () => {
   const sumArrayValues = (sum: number, currentValue: number) => sum + currentValue;
   const isCompleteLength = isCompleteTrueArray.reduce(sumArrayValues, 0);
 
+  const allTodosLengthArray = existTodosArray.map((array) => array.map((value) => value).length);
+  const allTodosLength = allTodosLengthArray.reduce(sumArrayValues, 0);
+
+
   return (
     <Wrapper id="todoResult">
+      <ProgressBar percentage={calcTodoProgress(isCompleteLength, allTodosLength)}></ProgressBar>
       <Container>
-        <LeftBox>
-          <div>오늘 당신이 처리한 </div>
-          <div>To Do는 🏃‍♀️</div>
-        </LeftBox>
-        <RightBox>
-          <div className="number">{makeNumValueFormat(isCompleteLength)}</div>
-          <div>개</div>
-        </RightBox>
+        <Quotes>
+
+          <div>Time is Gold - John Doe</div>
+
+        </Quotes>
+        <InfoArea>
+          {isCompleteLength > 0 ? (
+            <>
+              <LeftBox>
+                <div>당신이 처리한 </div>
+                <div>TO DO는...?</div>
+              </LeftBox>
+              <RightBox>
+                <div className="number">{makeNumValueFormat(isCompleteLength)}</div>
+                <div>/ {makeNumValueFormat(allTodosLength)}</div>
+              </RightBox>
+            </>
+          ) : (
+            <EmptyToDo>
+              <span className="material-symbols-rounded">rocket_launch</span>
+              <div>첫번째 Todo를 달성해보세요</div>
+            </EmptyToDo>
+          )}
+        </InfoArea>
       </Container>
     </Wrapper>
   );

@@ -5,7 +5,7 @@ import ThemeModeBtn from "./themeModeBtn";
 import TodoResult from "./todoResult";
 
 const Wrapper = styled.div`
-  background-color:${(props) => props.theme.bg};
+  //background-color:${(props) => props.theme.bg};
   color:${(props) => props.theme.onBg};
   width:100%;
   position:relative;

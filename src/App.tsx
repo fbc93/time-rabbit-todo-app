@@ -64,10 +64,22 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex;
+  justify-content: center;
+  overflow-x:hidden;
+  background-image: ${(props) => props.themeMode === "lightTheme" ? `url(${process.env.PUBLIC_URL}/images/time_rabbit.png)` : "none"};
+  background-position: 20vw 15vh;
+  background-repeat: no-repeat;
+  background-size: 18vw
 }
+
 a {
   text-decoration:none;
+}
+
+#root {
+  align-self: center;
 }
 
 &:has(.board-isDragging) #trashcan {

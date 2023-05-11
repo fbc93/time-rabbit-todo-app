@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   margin:0em 2em 11em;
   box-sizing:border-box;
   border-radius:1em;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 16px 24px -15px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
