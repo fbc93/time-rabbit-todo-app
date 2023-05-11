@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { BoardState } from "../atoms";
-import { calcTodoProgress, makeNumValueFormat } from "../utils";
+import { BoardState, QuoteState } from "../atoms";
+import { calcTodoProgress, getRandomQuotes, makeNumValueFormat } from "../utils";
 
 const Wrapper = styled.div`
   //background-image: ${(props) => props.theme.resultBg};
@@ -39,6 +39,7 @@ const LeftBox = styled.div`
   font-size:1.5rem;
   line-height:1.3;
   font-weight:bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,.1);
 `;
 const RightBox = styled.div`
   display:flex;
@@ -46,11 +47,16 @@ const RightBox = styled.div`
   align-items:baseline;
   font-size:2.5rem;
   font-weight:700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,.1);
   
   .number {
     font-size:4rem;
     font-weight:600;
     margin-right:0.1em;
+  }
+
+  div:last-child {
+    opacity:0.5;
   }
 `;
 
@@ -65,17 +71,17 @@ const ProgressBar = styled.div<{ percentage: number }>`
 const Quotes = styled.div`
   width:60%;
   overflow:hidden;
-  font-size:1.5rem;
+  font-size:1.4rem;
   text-align:left;
-  
+  font-weight:400;
+  text-shadow: 2px 2px 4px rgba(0,0,0,.1);
+  line-height:1.2;
 
-  
-
-  div {
-    margin:0 0.3em;
+  span:first-child {
+    display:inline-block;
+    margin-right:1rem;
   }
-
-  
+   
 `;
 
 const EmptyToDo = styled.div`
@@ -92,6 +98,10 @@ const EmptyToDo = styled.div`
 `;
 
 const TodoResult = () => {
+
+  //Random Quotes
+  const quoteValue = useRecoilValue(QuoteState);
+  const randomQuotes = getRandomQuotes(quoteValue);
 
   //isComplete 개수, 모든 투두 개수 체크
   const boardsArray = useRecoilValue(BoardState);
@@ -123,9 +133,8 @@ const TodoResult = () => {
       <ProgressBar percentage={calcTodoProgress(isCompleteLength, allTodosLength)}></ProgressBar>
       <Container>
         <Quotes>
-
-          <div>Time is Gold - John Doe</div>
-
+          <span>{randomQuotes.text}</span>
+          <span>{` - ${randomQuotes.from}`}</span>
         </Quotes>
         <InfoArea>
           {isCompleteLength > 0 ? (
@@ -136,7 +145,7 @@ const TodoResult = () => {
               </LeftBox>
               <RightBox>
                 <div className="number">{makeNumValueFormat(isCompleteLength)}</div>
-                <div>/ {makeNumValueFormat(allTodosLength)}</div>
+                <div> / {makeNumValueFormat(allTodosLength)}</div>
               </RightBox>
             </>
           ) : (

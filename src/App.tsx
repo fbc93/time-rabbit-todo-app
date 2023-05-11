@@ -68,10 +68,10 @@ body {
   display: flex;
   justify-content: center;
   overflow-x:hidden;
-  background-image: ${(props) => props.themeMode === "lightTheme" ? `url(${process.env.PUBLIC_URL}/images/time_rabbit.png)` : "none"};
-  background-position: 20vw 15vh;
+  background-image: ${(props) => props.themeMode === "lightTheme" ? `url(${process.env.PUBLIC_URL}/images/time_rabbit_01.png)` : `url(${process.env.PUBLIC_URL}/images/time_rabbit_02.png)`};
+  background-position: ${(props) => props.themeMode === "lightTheme" ? "20vw 15vh" : "62vw 13vh"};
+  background-size: ${(props) => props.themeMode === "lightTheme" ? "20vw" : "22vw"};
   background-repeat: no-repeat;
-  background-size: 18vw
 }
 
 a {

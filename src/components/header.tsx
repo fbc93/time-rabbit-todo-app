@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width:960px;
   margin:auto;
-  padding:18vh 0px 5vh;
+  padding:25vh 0px 5vh;
 `;
 
 const HeaderImage = styled.div`

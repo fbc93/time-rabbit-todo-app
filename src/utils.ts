@@ -1,3 +1,5 @@
+import { IQuotes } from "./atoms";
+
 //date format
 export const makeDateFormat = (value:Date) => {
   
@@ -23,4 +25,10 @@ export const makeNumValueFormat = (value: number) => {
 export const calcTodoProgress = (completedTodo:number, allTodos:number ) => {
   
   return ( completedTodo / allTodos ) * 100
+}
+
+//todoResult component quotes
+export const getRandomQuotes = (array: IQuotes[]) => {
+  const randomNumber = Math.floor(Math.random() * array.length);
+  return array[randomNumber];
 }

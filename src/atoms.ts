@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { getRandomQuotes } from "./utils";
 export interface IToDo {
   id: number;
   isComplete: boolean;
@@ -89,6 +90,49 @@ export const TrashcanState = atom<boolean>({
 export const ThemeState = atom<"darkTheme"|"lightTheme">({
   key:"theme",
   default: "lightTheme"
+});
+
+export interface IQuotes {
+  text:string,
+  from:string,
+}
+
+//Quotes Array
+const quotes:IQuotes[] = [
+  {
+    text:"The hurrier I go, the behinder I get.",
+    from: "Alice in Wonderland (1865)"
+  },
+  {
+    text:"We must use time as a tool, not as a couch.",
+    from : "John F. Kennedy"
+  },
+  {
+    text:"What's happened, happened.",
+    from : "Tennet (2020)"
+  },
+  {
+    text:"The most precious resource we all have is time.",
+    from : "Steve Jobs"
+  },
+  {
+    text:"You may delay, but time will not.",
+    from: "Benjamin Franklin"
+  },
+  {
+    text:"I don’t have time is just saying it’s not a priority.",
+    from:"Naval Ravikant"
+  },
+  {
+    text:"Begin with the end in mind.",
+    from: "Stephen Covey"
+  }
+];
+
+//Quotes atom Data
+export const QuoteState = atom({
+  key:"quotes",
+  default: quotes,
 });
 
 
