@@ -27,6 +27,8 @@ const Wrapper = styled.div`
   .greeting {
     font-size:1.5rem;
     line-height:1.5;
+    padding:1em 0;
+    font-weight:600;
   }
 `;
 
@@ -47,6 +49,8 @@ const Header = () => {
     const year = current.getFullYear();
     const month = current.getMonth();
     const date = current.getDate();
+    const day = current.getDay();
+    const dayArr = ["일", "월", "화", "수", "목", "금", "토"];
 
     const msSeconds = 1;
     const msMinutes = msSeconds * 60;
@@ -91,6 +95,12 @@ const Header = () => {
       minutesArray1.innerHTML = minutesArray[0];
       minutesArray2.innerHTML = minutesArray[1];
     }
+
+    const today = document.getElementById("today");
+    if (today) {
+      today.innerHTML = `${year}년 ${String(month + 1).padStart(2, '0')}월 ${String(date).padStart(2, '0')}일 ${dayArr[day]}요일은 현재`;
+    }
+
   }
 
   setInterval(LeftTime, 1000);
@@ -98,7 +108,9 @@ const Header = () => {
   return (
     <Wrapper>
       <Container>
-        <div className="date">2023년 05월 12일 금요일은</div>
+        <div id="today" className="date">
+          0000년 00월 00일 000은 현재
+        </div>
 
         <div id="timer" className="time">
           <div className="hours">

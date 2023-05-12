@@ -45,7 +45,7 @@ const RightBox = styled.div`
   display:flex;
   justify-content:center;
   align-items:baseline;
-  font-size:2rem;
+  font-size:2.5rem;
   font-weight:700;
   text-shadow: 2px 2px 4px rgba(0,0,0,.1);
   
@@ -53,6 +53,7 @@ const RightBox = styled.div`
     font-size:4rem;
     font-weight:600;
     margin-right:0.1em;
+    line-height:3rem;
   }
 
   div:last-child {
@@ -71,6 +72,8 @@ const ProgressBar = styled.div<{ percentage: number }>`
 const Quotes = styled.div`
   width:60%;
   overflow:hidden;
+  height: 100%;
+  line-height: 80px;
   
   span:first-child {
     display:inline-block;
@@ -78,11 +81,12 @@ const Quotes = styled.div`
   }
 
   span {
-    font-size:1.4rem;
+    font-size:1.5rem;
     text-align:left;
     font-weight:400;
     text-shadow: 2px 2px 4px rgba(0,0,0,.1);
     line-height:2;
+    letter-spacing: -0.3px;
   }
 `;
 
@@ -128,7 +132,6 @@ const TodoResult = () => {
 
   const allTodosLengthArray = existTodosArray.map((array) => array.map((value) => value).length);
   const allTodosLength = allTodosLengthArray.reduce(sumArrayValues, 0);
-
 
   return (
     <Wrapper id="todoResult">

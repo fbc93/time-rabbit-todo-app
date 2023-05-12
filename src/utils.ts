@@ -13,7 +13,7 @@ export const makeDateFormat = (value:Date) => {
 
   const dayArr = ["일","월","화","수","목","금","토"];
   
-  return `${month}월 ${date}일 (${dayArr[day]}) ${hour}:${minute}:${second}`;
+  return `${month + 1}월 ${date}일 (${dayArr[day]}) ${hour}:${minute}:${second}`;
 }
 
 //number format

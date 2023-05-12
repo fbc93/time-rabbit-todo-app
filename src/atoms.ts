@@ -12,46 +12,20 @@ export interface IBoardState {
 }
 
 //디폴트 투두보드 Data
-const defaultBoards:IBoardState[] = [
+export const defaultBoards:IBoardState[] = [
   {
     id: 0,
-    title:"오늘 할일",
-    toDos:[
-      {
-        id:0,
-        isComplete: false,
-        content:"화분에 물주기",
-        createAt: new Date(),
-      },
-      {
-        id:1,
-        isComplete: false,
-        content:"청소기 돌리기",
-        createAt: new Date(),
-      }
-    ]
+    title:"우선순위 1",
+    toDos:[]
   },
   {
     id: 1,
-    title:"내일 할일",
-    toDos:[
-      {
-        id:2,
-        isComplete: false,
-        content:"빨래하기",
-        createAt: new Date(),
-      },
-      {
-        id:3,
-        isComplete: false,
-        content:"인강 듣기",
-        createAt: new Date(),
-      }
-    ]
+    title:"우선순위 2",
+    toDos:[]
   },
   {
     id: 2,
-    title:"나중에 할일",
+    title:"우선순위 3",
     toDos:[]
   }
 ];
@@ -71,6 +45,11 @@ export const loadBoards = () => {
 
 export const saveBoards = (Boards:IBoardState[]) => {
   localStorage.setItem(LOCAL_BOARDS, JSON.stringify(Boards));
+}
+
+//투두보드 Data 로컬 스토리지 삭제
+export const deleteBoards = () => {
+  localStorage.clear();
 }
 
 //투두보드 atom Data 
@@ -134,6 +113,9 @@ export const QuoteState = atom({
   default: quotes,
 });
 
-
-
+//Result Popup
+export const ResultPopup = atom<boolean>({
+  key:"resultPopup",
+  default: false,
+});
 
