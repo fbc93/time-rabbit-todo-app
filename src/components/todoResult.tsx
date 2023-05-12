@@ -45,7 +45,7 @@ const RightBox = styled.div`
   display:flex;
   justify-content:center;
   align-items:baseline;
-  font-size:2.5rem;
+  font-size:2rem;
   font-weight:700;
   text-shadow: 2px 2px 4px rgba(0,0,0,.1);
   
@@ -71,17 +71,19 @@ const ProgressBar = styled.div<{ percentage: number }>`
 const Quotes = styled.div`
   width:60%;
   overflow:hidden;
-  font-size:1.4rem;
-  text-align:left;
-  font-weight:400;
-  text-shadow: 2px 2px 4px rgba(0,0,0,.1);
-  line-height:1.2;
-
+  
   span:first-child {
     display:inline-block;
     margin-right:1rem;
   }
-   
+
+  span {
+    font-size:1.4rem;
+    text-align:left;
+    font-weight:400;
+    text-shadow: 2px 2px 4px rgba(0,0,0,.1);
+    line-height:2;
+  }
 `;
 
 const EmptyToDo = styled.div`

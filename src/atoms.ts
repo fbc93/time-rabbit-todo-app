@@ -1,5 +1,4 @@
 import { atom } from "recoil";
-import { getRandomQuotes } from "./utils";
 export interface IToDo {
   id: number;
   isComplete: boolean;

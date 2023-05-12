@@ -40,7 +40,7 @@ const ToDoContent = styled.div<{ isComplete: boolean }>`
     margin-right:0.5em;
     font-size:2.2rem;
     cursor:pointer;
-    color: ${(props) => props.isComplete ? "red" : "#cccccc"}!important;
+    color: ${(props) => props.isComplete ? "red" : "#999999"}!important;
   }
 
   div {
