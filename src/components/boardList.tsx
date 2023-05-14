@@ -26,6 +26,77 @@ const Layer = styled.div<{ resultPopup: boolean }>`
   opacity: ${(props) => props.resultPopup ? "1" : "0"};
   z-index: ${(props) => props.resultPopup ? 1 : -1};
   transition: opacity 0.2s ease-in-out;
+
+  .title {
+    text-align:center;
+    font-size:2rem;
+    line-height:1.5;
+    font-weight:bold;
+    margin-bottom:2em;
+  }
+
+  .todo-list {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .list-title {
+    font-size:1.5rem;
+    letter-spacing:-0.5px;
+    font-weight:bold;
+    margin-bottom:1em;
+  }
+
+  ul {
+    background-color:${(props) => props.theme.listBg};
+    border-radius:10px;
+    max-height: 218px;
+    overflow-y: auto;
+
+    li {
+      font-size:1.4rem;
+      padding: 1.5em;
+      border-bottom: 0.2em solid ${(props) => props.theme.line};
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      span:last-child {
+        color:red;
+      }
+
+      &:last-child {
+        margin-bottom:0;
+      }
+    }
+  }
+
+  .button-wrap {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    margin-top:2em;
+
+    button {
+      width:100%;
+      cursor:pointer;
+      padding:1em 0;
+      font-size:1.4rem;
+      letter-spacing:-0.5px;
+      border-radius:5px;
+      border:none;
+      font-weight:bold;
+      background-image:${(props) => props.theme.resultBg};
+      color:${(props) => props.theme.onBgText};
+    }
+
+    button:first-child {
+      margin-bottom:0.5em;
+    }
+  }
 `;
 
 const Popup = styled.div`
@@ -35,9 +106,11 @@ const Popup = styled.div`
   left:50%;
   top:50%;
   transform:translate(-50%, -50%);
-  background-color:white;
+  background-color:${(props) => props.theme.bg};
   border-radius:15px;
   padding:5em;
+  display: flex;
+  flex-direction: column;
 `;
 
 const BoardList = () => {
@@ -138,15 +211,24 @@ const BoardList = () => {
 
       <Layer id="resultPopup" resultPopup={resultPopup}>
         <Popup>
-          <div>짝짝짝 👏👏👏  고생하셨어요! <br /> 계획한 투두를 모두 처리하셨어요!</div>
-          <div>
-            <div>처리한 투두 목록</div>
-            <ul>
-              {allTodoContents.map((item, index) => <li key={index}>{item}</li>)}
-            </ul>
+          <div className="title">짝짝짝 👏👏👏<br /> 계획한 Todo를 모두 처리하셨어요!</div>
+          <div className="todo-list">
             <div>
+              <div className="list-title">📌 처리한 Todo 목록</div>
+              <ul>
+                {allTodoContents.map((item, index) =>
+                  <li key={index}>
+                    <span>{item}</span>
+                    <span className="material-symbols-rounded">
+                      done
+                    </span>
+                  </li>
+                )}
+              </ul>
+            </div>
+            <div className="button-wrap">
               <button onClick={onClickClosePopup}>이어서 하기</button>
-              <button onClick={onClickTodoReset}>투두 리셋하기</button>
+              <button onClick={onClickTodoReset}>모든 Todo 리셋</button>
             </div>
           </div>
         </Popup>

@@ -17,7 +17,9 @@ export const darkTheme:DefaultTheme = {
   trashcanOver:"rgba(247, 143, 179,1.0)",
   emptyBg:"rgba(235, 59, 90,1.0)",
   resultBg: "linear-gradient(-225deg, #A445B2 0%, #D41872 52%, #FF0066 100%);",
-  progressbar:"#333333"
+  progressbar:"#333333",
+  listBg:"#333333",
+  line:"#121212"
   
 }
 
@@ -38,5 +40,7 @@ export const lightTheme:DefaultTheme = {
   trashcanOver:"#f6e58d",
   emptyBg:"rgb(245, 234, 179)",
   resultBg: "linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)",
-  progressbar:"#dcdde1"
+  progressbar:"#dcdde1",
+  listBg:"#f5f5f5",
+  line:"#ffffff"
 }
