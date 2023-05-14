@@ -102,7 +102,7 @@ function App() {
   }, [boardsData]);
 
   //로컬 스토리지 디버깅
-  console.log("✅ Local Storage : ", boardsData);
+  //console.log("✅ Local Storage : ", boardsData);
 
   return (
     <>

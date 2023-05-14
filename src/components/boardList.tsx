@@ -57,7 +57,7 @@ const Layer = styled.div<{ resultPopup: boolean }>`
 
     li {
       font-size:1.4rem;
-      padding: 1.5em;
+      padding: 1em;
       border-bottom: 0.2em solid ${(props) => props.theme.line};
       display:flex;
       justify-content:space-between;
@@ -69,6 +69,7 @@ const Layer = styled.div<{ resultPopup: boolean }>`
 
       &:last-child {
         margin-bottom:0;
+        border-bottom:0;
       }
     }
   }
@@ -214,7 +215,7 @@ const BoardList = () => {
           <div className="title">짝짝짝 👏👏👏<br /> 계획한 Todo를 모두 처리하셨어요!</div>
           <div className="todo-list">
             <div>
-              <div className="list-title">📌 처리한 Todo 목록</div>
+              <div className="list-title">📌 처리한 Todo 목록 ({allTodoContents.length})</div>
               <ul>
                 {allTodoContents.map((item, index) =>
                   <li key={index}>
