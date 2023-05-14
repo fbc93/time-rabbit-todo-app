@@ -69,18 +69,17 @@ const BoardList = () => {
   const allTodosLengthArray = existTodosArray.map((array) => array.map((value) => value).length);
   const allTodosLength = allTodosLengthArray.reduce(sumArrayValues, 0);
 
-  //완료된 투두 배열 내용
-  const isCompleteTodoArray = Object.keys(existTodosArray)
-    .map((index) => [...existTodosArray[+index]]
-      .map((toDo) => toDo.content));
+  //달성한 모든 투두 배열
+  let allTodoContents: string[] = [];
+  existTodosArray.map((array) => array.map((value) => value.content).map((content) => allTodoContents.push(content)));
 
+  //popup show/hide
   useEffect(() => {
-    //popup show
+
     if (isCompleteLength === allTodosLength && allTodosLength > 0) {
       setResultPopup(true);
     }
 
-    //popup hide
     if (isCompleteLength !== allTodosLength) {
       setResultPopup(false);
     }
@@ -143,9 +142,7 @@ const BoardList = () => {
           <div>
             <div>처리한 투두 목록</div>
             <ul>
-              <li>공부하기</li>
-              <li>청소하기</li>
-              <li>놀기</li>
+              {allTodoContents.map((item, index) => <li key={index}>{item}</li>)}
             </ul>
             <div>
               <button onClick={onClickClosePopup}>이어서 하기</button>
