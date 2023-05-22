@@ -34,7 +34,7 @@ const ToDoContent = styled.div<{ isComplete: boolean }>`
   line-height:1.5;
   display:flex;
   justify-contents:center;
-  align-items:center;
+  align-items:start;
 
   span {
     margin-right:0.5em;
@@ -47,7 +47,7 @@ const ToDoContent = styled.div<{ isComplete: boolean }>`
     font-weight:normal;
     font-size:1.4rem;
     letter-spacing:-1px;
-    line-height:1;
+    line-height:1.5;
   }
 `;
 
