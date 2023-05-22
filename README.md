@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# 🐰⏰ Time Rabbit Todo App (타임래빗 투두 앱)
+![preview](https://github.com/fbc93/time-rabbit-todo-app/assets/81315091/c55b3926-d092-4edf-a68c-b4fdc39da3c9)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+> 🚀 [Time Rabbit 바로가기](https://time-rabbit-todo-ci0d5itsd-fbc93.vercel.app/)
 
-In the project directory, you can run:
+<br></br>
 
-### `npm start`
+# 1. 서비스 소개
+#### 하루 24시간을 알차게 쓰기 위해 어떻게 동기부여를 하면 좋을까 고민하며 만든 Todo 앱입니다. 
+- Todo 앱의 시계는 현재시간이 아닌 `오늘 날짜와 오늘 하루 남은 시간` 을 카운트합니다.
+- 작성된 데이터는 Local Storage를 이용하여 기억됩니다.
+- 마우스로 drag하여 보드와 Todo의 위치를 바꿀 수 있습니다.
+- Todo 테스크의 보드 간 이동이 가능합니다.
+- ✅ check하여 완료한 테스크를 표시할 수 있습니다.
+- heaer 영역에서는 전체 전체 테스크 진행 정도를 progress bar로 확인 할 수 있습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br></br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# 2. 기술 스택
+- React CRA
+- Styled-Component
+- Typescript
+- Recoil
+- react-beautiful-dnd (라이브러리)
+- Vercel (배포)
 
-### `npm test`
+<br></br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 3. 개발 스케줄
+- 1인 프로젝트
+- 개발: 2023-05-06 ~ 2023-05-15 (10일 소요)
 
-### `npm run build`
+<br></br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 4. 주요 기능
+### 🐰 바쁘다, 바뻐 ;;  이상한 나라의 앨리스 시계토끼처럼 오늘 하루 남은 시간을 확인하며 바쁘게 살기위한 Todo App.
+- 오늘 남은 시간을 확인하며 하루 단위로 처리할 수 있는 테스크를 확인해보세요.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![May-22-2023 17-04-18](https://github.com/fbc93/time-rabbit-todo-app/assets/81315091/3734b641-f7a4-4c25-a9f8-bd38dccee9b0)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br></br>
 
-### `npm run eject`
+### 🐰 자유로운 위치변경으로 우선순위를 정리해보세요.
+- Todo보드와 테스크의 위치를 자유롭게 움직일 수 있습니다.
+- Todo보드의 이름을 네이밍하여 하고싶은 일을 Grouping 해보세요.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![May-22-2023 17-18-23](https://github.com/fbc93/time-rabbit-todo-app/assets/81315091/56225d79-8988-489c-a216-25b8226864a1)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br></br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 🐰 Todo 내용을 지우고 수정하세요.
+- ✏️ 연필 버튼과 🗑️ 쓰레기통 아이콘을 클릭하여 언제든지 삭제하고 수정할 수 있습니다.
+- Todo보드는 drag하여 header에서 나타나는 영역에 drag and drop으로 지울 수 있어요.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![May-22-2023 17-30-09](https://github.com/fbc93/time-rabbit-todo-app/assets/81315091/3c1b855e-ea6c-4aa8-bec0-54ce8231aa5b)
+ 
+ <br></br>
+ 
+ ### 🐰 하고싶은 일이 너무 많아도 참아주세요, Todo보드는 최대 4개까지 생성할 수 있어요
+ - input에 이름을 작성하고 추가 버튼을 클릭하여 보드를 생성할 수 있어요.
+ - 보드는 4개까지 생성 가능 합니다, 보드 안의 Todo task는 계속해서 추가할 수 있어요.
 
-## Learn More
+![May-22-2023 17-43-24](https://github.com/fbc93/time-rabbit-todo-app/assets/81315091/783cbfd6-6cc5-4387-856d-3adff1c946be)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br></br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🐰 
+ 
+ 
+ 
+ 
