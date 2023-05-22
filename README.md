@@ -13,7 +13,8 @@
 - 마우스로 drag하여 보드와 Todo의 위치를 바꿀 수 있습니다.
 - Todo 테스크의 보드 간 이동이 가능합니다.
 - ✅ check하여 완료한 테스크를 표시할 수 있습니다.
-- heaer 영역에서는 전체 전체 테스크 진행 정도를 progress bar로 확인 할 수 있습니다.
+- header 영역에서는 전체 전체 테스크 진행 정도를 progress bar로 확인 할 수 있습니다.
+- 모든 Todo를 완료하면 팝업으로 달성한 테스크를 확인합니다.
 
 <br></br>
 
@@ -51,7 +52,7 @@
 
 ### 🐰 Todo 내용을 지우고 수정하세요.
 - ✏️ 연필 버튼과 🗑️ 쓰레기통 아이콘을 클릭하여 언제든지 삭제하고 수정할 수 있습니다.
-- Todo보드는 drag하여 header에서 나타나는 영역에 drag and drop으로 지울 수 있어요.
+- Todo보드는 drag하여 header에서 나타나는 영역에 drag & drop으로 지울 수 있어요.
 
 ![May-22-2023 17-30-09](https://github.com/fbc93/time-rabbit-todo-app/assets/81315091/3c1b855e-ea6c-4aa8-bec0-54ce8231aa5b)
  
@@ -69,7 +70,7 @@
 - 상단 header 영역에서 총 테스크와 달성 개수를 확인할 수 있습니다.
 - 전체 진행 상황을 그래프로 확인하세요.
 - 생성한 테스크를 모두 체크하면 달성한 Todo 리스트를 팝업으로 보여줍니다.
-- Todo 리스트를 이어가거나 Reset할 수 있어요.
+- Todo를 이어가거나 Reset할 수 있어요.
 
 ![May-22-2023 18-00-18](https://github.com/fbc93/time-rabbit-todo-app/assets/81315091/fd426bf6-30d8-49bc-9fc0-80f0a066d47c)
 
